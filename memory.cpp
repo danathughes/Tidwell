@@ -1,6 +1,7 @@
 #include "memory.h"
 
 #include <iostream>
+#include <iomanip>
 
 /*****************
 * Memory()
@@ -47,5 +48,51 @@ unsigned char Memory::fetch(unsigned short address)
 	}
 
 	return memory[address];
+}
 
+/*******************
+* void dump(short address, char value)
+*
+* Write the byte to the provided address
+*
+* Parameters:
+*   address - memory location to write to
+*   value   - byte value to write
+*******************/
+void Memory::dump(unsigned short address, unsigned char value)
+{
+	// Check to see if the address is a writable location.
+	if(address < _ram_start)
+	{
+		std::cout << "MEMORY ERROR: Attempting to write to memory address " << address << std::endl;
+		return;
+	}
+
+	memory[address] = value;
+}
+
+
+unsigned short Memory::get_ram_start()
+{
+	return _ram_start;
+}
+
+unsigned short Memory::get_display_start()
+{
+	return _display_refresh_start;
+}
+
+unsigned short Memory::get_display_size()
+{
+	return 0xFF;
+}
+
+
+void Memory::print_memory(unsigned short address, unsigned short num_bytes)
+{
+	for(unsigned short i=address; i<address+num_bytes; i++)
+	{
+		std::cout << std::setw(2) << std::hex << (unsigned short) memory[i] << " ";
+	}
+	std::cout << std::endl;
 }

@@ -19,5 +19,7 @@ int main()
 	chip8->reset();
 	chip8->test();
 
+	chip8->load("maze.ch8");
+
 	return 0;
 }

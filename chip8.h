@@ -78,7 +78,7 @@ class Chip8
 		// High-level instructions to reset the chip, load a program,
 		// and perform a clock cycle
 		void reset();
-		void load();
+		void load(const char*);
 		void cycle();
 		void test();
 };

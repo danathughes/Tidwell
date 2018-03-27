@@ -22,7 +22,14 @@ class Memory
 	public:
 		Memory();
 		unsigned char fetch(unsigned short);
-		
+		void dump(unsigned short, unsigned char);
+
+		unsigned short get_ram_start();
+		void print_memory(unsigned short, unsigned short);
+
+
+		unsigned short Memory::get_display_start();
+		unsigned short Memory::get_display_size();
 };
 
 #endif

@@ -6,6 +6,7 @@
 #include "keyboard.h"
 
 #include <iostream>
+#include <fstream>
 
 /************
 *
@@ -58,8 +59,47 @@ void Chip8::reset()
 *
 * Load a program into memory.
 ************/
-void Chip8::load()
+void Chip8::load(const char* filename)
 {
+	// Open the file
+	std::ifstream romfile;
+	romfile.open(filename, std::ios::in | std::ios::binary);
+
+	// If the file didn't open, return
+	if(!romfile.is_open())
+	{
+		std::cout << "ERROR: File " << filename << " did not open!" << std::endl;
+		return;
+	}
+
+	// Load the entirity of the file into a char array, then write to memory
+	// NOTE:  Should the file just be passed to memory to load directly?
+
+	// Figure out how long the file is
+	long begin, end;
+	begin = romfile.tellg();
+	romfile.seekg(0, std::ios::end);
+	end = romfile.tellg();
+	int size = (int) (end - begin);
+
+	// Load the file
+	char* memblock = new char[size];
+
+	romfile.seekg(0, std::ios::beg);
+	romfile.read(memblock, size);
+	romfile.close();
+
+	// Dump the loaded file into memory
+	unsigned short start_address = memory->get_ram_start();
+	std::cout << "Start address of RAM: 0x" << std::hex << start_address << std::endl;
+	for(int i=0; i<size; i++)
+	{
+		memory->dump(start_address + i, memblock[i]);
+	}
+
+	delete [] memblock;
+
+	memory->print_memory(start_address, size);
 
 }
 
@@ -264,9 +304,22 @@ void Chip8::cycle()
 * OPCODES
 **********************/
 
+/*********************
+* _clear_screen
+*
+* Set all bytes in the display memory to 0x00
+*********************/
 void Chip8::_clear_screen(unsigned short opcode)
 {
+	// What are the bounds of the display memory?
+	unsigned short display_start = memory->get_display_start();
+	unsigned short display_end = display_start + memory->get_display_size();
 
+	// Set all the bits in memory associated with the screen to 0
+	for(unsigned short address=display_start; address<display_end; address++)
+	{
+		memory->dump(i, 0x00);
+	}
 }
 
 void Chip8::_return(unsigned short opcode)
