@@ -27,9 +27,8 @@ class Memory
 		unsigned short get_ram_start();
 		void print_memory(unsigned short, unsigned short);
 
-
-		unsigned short Memory::get_display_start();
-		unsigned short Memory::get_display_size();
+		unsigned short get_display_start();
+		unsigned short get_display_size();
 };
 
 #endif
