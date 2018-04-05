@@ -108,6 +108,8 @@ void Chip8::load(const char* filename)
 
 	memory->print_memory(start_address, size);
 
+
+	std::cout << "Program Counter: " << std::hex << program_counter << std::endl;	
 }
 
 /*************
@@ -928,3 +930,24 @@ void Chip8::test()
 	std::cout << "Attempting memory fetch at location 0x2345: "  << memory->fetch(0x2345) << std::endl;
 }
 
+
+unsigned char Chip8::get_register(unsigned char register_number)
+{
+	return registers[register_number];
+}
+
+
+unsigned short Chip8::get_address()
+{
+	return address_register;
+}
+
+unsigned short Chip8::get_program_counter()
+{
+	return program_counter;
+}
+
+unsigned char Chip8::get_stack_pointer()
+{
+	return stack_pointer;
+}

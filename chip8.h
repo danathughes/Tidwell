@@ -101,6 +101,12 @@ class Chip8
 		void load(const char*);
 		void cycle();
 		void test();
+
+		// Access to program counter, stack pointer, registers, etc.
+		unsigned char get_register(unsigned char);
+		unsigned short get_address();
+		unsigned short get_program_counter();
+		unsigned char get_stack_pointer();
 };
 
 #endif
