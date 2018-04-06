@@ -137,6 +137,8 @@ void Chip8::cycle()
 	std::cout << "Value: 0x" << std::hex << (unsigned short) value << std::endl;
 	std::cout << "          Program Counter: 0x" << std::hex << program_counter << std::endl << std::endl;
 
+	display->show();
+
 
 	// Decode the opcode and act accordingly
 	// opcodes are organized roughly by first nybble
@@ -317,6 +319,7 @@ void Chip8::cycle()
 			_invalid_opcode(opcode);
 			break;
 	}
+
 
 }
 
@@ -781,28 +784,65 @@ void Chip8::_random(unsigned char register_x, unsigned char value)
 *********************/
 void Chip8::_draw(unsigned char register_x, unsigned char register_y, unsigned char value)
 {
+	bool collision = false;
 
+	unsigned char x = registers[register_x];
+	unsigned char y = registers[register_y];
+
+	// Read in N bytes, starting at the current address register
+	for(int i=0; i<value; i++)
+	{
+		unsigned char line = memory->fetch(address_register + i);
+
+		collision = collision || display->write_line(x, y+i, line);
+	}
+	if(collision)
+	{
+		registers[0x0F] = 0x01;
+	}
 }
-
 
 
 void Chip8::_skip_key_pressed(unsigned char register_x)
 {
+	unsigned char key = registers[register_x];
 
+	if(keyboard->is_key_pressed(key))
+	{
+		program_counter += 2;
+	}
 }
 
 
 
 void Chip8::_skip_key_not_pressed(unsigned char register_x)
 {
+	unsigned char key = registers[register_x];
 
+	if(!keyboard->is_key_pressed(key))
+	{
+		program_counter += 2;
+	}
 }
 
 
 
 void Chip8::_get_key(unsigned char register_x)
 {
+	bool got_key_press = false;
 
+	while(!got_key_press)
+	{
+		for(int i=0; i<0x0F; i++)
+		{
+			if(keyboard->is_key_pressed(i))
+			{
+				registers[register_x] = i;
+				got_key_press = true;
+				break;
+			}
+		}
+	}
 }
 
 
@@ -865,14 +905,28 @@ void Chip8::_add_address_register(unsigned char register_x)
 
 void Chip8::_set_address_sprite(unsigned char register_x)
 {
-
+	address_register = memory->get_sprite_address(registers[register_x]);	
 }
 
 
 
 void Chip8::_store_bcd(unsigned char register_x)
 {
+	unsigned char value = registers[register_x];
 
+	// What is the 100's, 10's and 1's?
+	unsigned char value_100s = value / 100;
+	value -= 100*(value_100s);
+
+	unsigned char value_10s = value / 10;
+	value -= 10*(value_10s);
+
+	unsigned char value_1s = value;
+
+	// Store the three bytes
+	memory->dump(address_register, value_100s);
+	memory->dump(address_register, value_10s);
+	memory->dump(address_register, value_1s);
 }
 
 

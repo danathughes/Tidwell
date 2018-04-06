@@ -19,6 +19,10 @@ class Memory
 		unsigned short _call_stack_start;
 		unsigned short _display_refresh_start;
 
+		// Start location of sprites
+		unsigned short _sprite_memory_start;
+		void load_sprites();
+
 	public:
 		Memory();
 		unsigned char fetch(unsigned short);
@@ -29,6 +33,9 @@ class Memory
 
 		unsigned short get_display_start();
 		unsigned short get_display_size();
+
+		unsigned short get_sprite_address(unsigned char);
+
 };
 
 #endif

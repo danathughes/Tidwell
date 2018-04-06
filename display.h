@@ -4,9 +4,16 @@
 class Display
 {
 	private:
+		bool display[64][32];
 
 	public:
 		Display();
+
+		bool set_pixel(unsigned char, unsigned char);
+		bool get_pixel(unsigned char, unsigned char);
+		bool write_line(unsigned char, unsigned char, unsigned char);
+		void show();
+	
 };
 
 #endif
