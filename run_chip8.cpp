@@ -6,7 +6,8 @@
 #include "memory.h"
 #include "chip8.h"
 
-#include "gtk_gui.h"
+//#include "gtk_gui.h"
+#include "glade_gui.h"
 
 #include <iostream>
 
@@ -27,7 +28,7 @@ int main(int argc, char** argv)
 	std::cout << "Chip 8: " << std::hex << chip8 << std::endl;
 
 	// Build the GUI, and start it up!
-	GtkGui* gui = new GtkGui(chip8, argc, argv);
+	GladeGui* gui = new GladeGui(chip8, argc, argv);
 	gui->build();
 	gui->run();
 

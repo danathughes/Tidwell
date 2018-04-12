@@ -59,9 +59,11 @@ bool Display::write_line(unsigned char x, unsigned char y, unsigned char value)
 
 		if(is_high)
 		{
-			collision = collision || set_pixel(x+i,y);
+			collision = collision || set_pixel(_x, _y);
 		} 
 	}
+
+	return collision;
 }
 
 

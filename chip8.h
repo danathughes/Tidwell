@@ -107,6 +107,11 @@ class Chip8
 		unsigned short get_address();
 		unsigned short get_program_counter();
 		unsigned char get_stack_pointer();
+
+		// Access to the display
+		bool get_pixel(unsigned char, unsigned char);
+
+		bool refresh;
 };
 
 #endif

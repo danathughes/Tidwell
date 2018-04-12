@@ -25,6 +25,8 @@ Chip8::Chip8()
 
 	call_stack = new unsigned char[CALL_STACK_SIZE];
 
+	refresh=false;
+
 	// Seed a random number generator
 	srand(time(NULL));
 }
@@ -129,7 +131,9 @@ void Chip8::cycle()
 	unsigned char register_x = 	(unsigned char) ((opcode & 0x0F00) >> 8);	// 2nd nybble
 	unsigned char register_y = 	(unsigned char) ((opcode & 0x00F0) >> 4);	// 3rd nyyble
 	unsigned char value =		(unsigned char) (opcode & 0x00FF);			// Last byte used as value
+	unsigned char nybble = 		(unsigned char) (opcode & 0x000F);
 
+	/*
 	std::cout << "Cycle --- Opcode: 0x" << std::hex << opcode << "  ";
 	std::cout << "Address: 0x" << std::hex << address << "  ";
 	std::cout << "Vx: 0x" << std::hex << (unsigned short) register_x << "  ";
@@ -138,7 +142,7 @@ void Chip8::cycle()
 	std::cout << "          Program Counter: 0x" << std::hex << program_counter << std::endl << std::endl;
 
 	display->show();
-
+	*/
 
 	// Decode the opcode and act accordingly
 	// opcodes are organized roughly by first nybble
@@ -250,7 +254,7 @@ void Chip8::cycle()
 			break;
 
 		case 0xD000:
-			_draw(register_x, register_y, value);
+			_draw(register_x, register_y, nybble);
 			break;
 
 		case 0xE000:
@@ -800,6 +804,8 @@ void Chip8::_draw(unsigned char register_x, unsigned char register_y, unsigned c
 	{
 		registers[0x0F] = 0x01;
 	}
+
+	refresh=true;
 }
 
 
@@ -1004,4 +1010,9 @@ unsigned short Chip8::get_program_counter()
 unsigned char Chip8::get_stack_pointer()
 {
 	return stack_pointer;
+}
+
+bool Chip8::get_pixel(unsigned char x, unsigned char y)
+{
+	return display->get_pixel(x,y);
 }

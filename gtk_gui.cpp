@@ -14,11 +14,8 @@ static void _click_cycle(GtkWidget* widget, gpointer data)
 
 	GtkGui* gui = (GtkGui*) data;
 
-	for(int i=0; i<1000; i++)
-	{
-		gui->cycle_chip();
-		gui->update_registers();
-	}
+	gui->cycle_chip();
+	gui->update_registers();
 }
 
 
