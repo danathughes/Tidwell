@@ -1,4 +1,7 @@
 #include "chip8.h"
+#include "memory.h"
+#include "display.h"
+#include "keyboard.h"
 
 #include <gtk/gtk.h>
 
@@ -9,7 +12,11 @@
 class GladeGui
 {
 	private:
+		// Components of the computer
 		Chip8* chip8;
+		Display* display_buffer;
+		Keyboard* keyboard;
+		Memory* memory;
 
 		// Is the gui running the chip
 
@@ -31,6 +38,8 @@ class GladeGui
 
 	public:
 		GladeGui(Chip8*, int, char**);
+		GladeGui(Chip8*, Memory*, Display*, Keyboard*, int, char**);
+
 		~GladeGui();
 
 		void cycle_chip();

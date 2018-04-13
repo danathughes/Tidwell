@@ -4,6 +4,8 @@
 */
 
 #include "memory.h"
+#include "keyboard.h"
+#include "display.h"
 #include "chip8.h"
 
 //#include "gtk_gui.h"
@@ -18,19 +20,24 @@
 *****/
 int main(int argc, char** argv)
 {
-	Chip8* chip8 = new Chip8();
+	// Create a keyboard, memory and display
+	Keyboard* keyboard = new Keyboard();
+	Display* display = new Display();
+	Memory* memory = new Memory();
+
+	std::cout << "Memory: " << std::hex << memory << std::endl;
+	std::cout << "Display: " << std::hex << display << std::endl;
+	std::cout << "Keyboard: " << std::hex << keyboard << std::endl;
+
+	Chip8* chip8 = new Chip8(memory, display, keyboard);
 	chip8->reset();
 //	chip8->test();
 
-	chip8->load("maze.ch8");
+	chip8->load("minimal.ch8");
 	chip8->reset();
 
-	chip8->press_key(3);
-
-	std::cout << "Chip 8: " << std::hex << chip8 << std::endl;
-
 	// Build the GUI, and start it up!
-	GladeGui* gui = new GladeGui(chip8, argc, argv);
+	GladeGui* gui = new GladeGui(chip8, memory, display, keyboard, argc, argv);
 	gui->build();
 	gui->run();
 

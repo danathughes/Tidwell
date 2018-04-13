@@ -4,7 +4,7 @@
 class Keyboard
 {
 	private:
-		bool keys[0x0F];
+		bool keys[0x10];
 
 	public:
 		Keyboard();

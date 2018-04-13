@@ -23,7 +23,7 @@ class Chip8
 		unsigned short address_register;
 
 		// Call stack - Size allocated upon creation
-		unsigned char* call_stack;
+		unsigned short* call_stack;
 		unsigned char stack_pointer;
 
 		// Timers
@@ -94,6 +94,7 @@ class Chip8
 	public:
 		// Constructors and destructors
 		Chip8();
+		Chip8(Memory*, Display*, Keyboard*);
 
 		// High-level instructions to reset the chip, load a program,
 		// and perform a clock cycle

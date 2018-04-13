@@ -13,6 +13,7 @@ void _click_cycle(GtkWidget* widget, gpointer data)
 	// Extract the GUI from the user data
 	GladeGui* gui = (GladeGui*) data;
 
+
 	// Cycle the chip
 	gui->cycle_chip();
 
@@ -112,7 +113,7 @@ void on_run_button_toggled(GtkWidget* widget, gpointer data)
 }
 
 
-void on_button_pressed(GtkWidget* widget, gpointer data)
+void on_button_pressed(GtkWidget* widget, GdkEventExpose* event, gpointer data)
 {
 	GladeGui* gui = (GladeGui*) data;
 
@@ -122,7 +123,7 @@ void on_button_pressed(GtkWidget* widget, gpointer data)
 }
 
 
-void on_button_released(GtkWidget* widget, gpointer data)
+void on_button_released(GtkWidget* widget, GdkEventExpose* event, gpointer data)
 {
 	GladeGui* gui = (GladeGui*) data;
 
@@ -143,6 +144,25 @@ GladeGui::GladeGui(Chip8* chip, int argc, char** argv)
 }
 
 
+GladeGui::GladeGui(Chip8* chip, Memory* _memory, Display* _display, Keyboard* _keyboard, int argc, char** argv)
+{
+	// Initialize Gtk
+	gtk_init(&argc, &argv);
+
+	chip8 = chip;
+	memory = _memory;
+	display_buffer = _display;
+	keyboard = _keyboard;
+
+	running = false;
+
+	std::cout << "In GUI:" << std::endl;
+	std::cout << "Memory: " << std::hex << memory << std::endl;
+	std::cout << "Display: " << std::hex << display_buffer << std::endl;
+	std::cout << "Keyboard: " << std::hex << keyboard << std::endl;
+}
+
+
 GladeGui::~GladeGui()
 {
 
@@ -158,19 +178,17 @@ bool GladeGui::need_refresh()
 
 bool GladeGui::get_pixel(unsigned char x, unsigned char y)
 {
-	return chip8->get_pixel(x,y);
+	return display_buffer->get_pixel(x,y);
 }
 
 void GladeGui::press_key(unsigned char key_num)
 {
-	std::cout << "gui " << std::endl;
-	chip8->press_key(key_num);
+	keyboard->press_key(key_num);
 }
 
 void GladeGui::release_key(unsigned char key_num)
 {
-	std::cout << "gui " << std::endl;
-	chip8->release_key(key_num);
+	keyboard->release_key(key_num);
 }
 
 
@@ -322,8 +340,6 @@ void GladeGui::build()
 	// Connect the signals.  All signals are going to pass the instance of this object as
 	// user data, so that callback functions can access appropriate information.
 	gtk_builder_connect_signals(builder, this);
-
-
 
 
 	g_object_unref(builder);

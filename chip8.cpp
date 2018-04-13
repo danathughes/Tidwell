@@ -23,7 +23,7 @@ Chip8::Chip8()
 	keyboard = new Keyboard();
 	display = new Display();
 
-	call_stack = new unsigned char[CALL_STACK_SIZE];
+	call_stack = new unsigned short[CALL_STACK_SIZE];
 
 	refresh=false;
 
@@ -33,6 +33,30 @@ Chip8::Chip8()
 	// Seed a random number generator
 	srand(time(NULL));
 }
+
+
+/************
+*
+* Create a Chip-8 with provided components
+************/
+Chip8::Chip8(Memory* _memory, Display* _display, Keyboard* _keyboard)
+{
+	memory = _memory;
+	keyboard = _keyboard;
+	display = _display;
+
+	call_stack = new unsigned short[CALL_STACK_SIZE];
+
+	refresh=false;
+
+	std::cout << "In Chip:" << std::endl;
+	std::cout << "Memory: " << memory << std::endl;
+	std::cout << "Display: " << display << std::endl;
+	std::cout << "Keyboard: " << keyboard << std::endl;
+	// Seed a random number generator
+	srand(time(NULL));
+}
+
 
 
 /*************
@@ -144,7 +168,7 @@ void Chip8::cycle()
 	std::cout << "Value: 0x" << std::hex << (unsigned short) value << std::endl;
 	std::cout << "          Program Counter: 0x" << std::hex << program_counter << std::endl << std::endl;
 
-	display->show();
+//	display->show();
 	*/
 
 	// Decode the opcode and act accordingly
@@ -321,6 +345,7 @@ void Chip8::cycle()
 					_invalid_opcode(opcode);
 					break;
 			}
+			break;
 
 		default:
 			_invalid_opcode(opcode);
@@ -370,8 +395,10 @@ void Chip8::_return()
 	}
 
 	// Set the program counter to the address on the top of the stack
-	program_counter = call_stack[stack_pointer];
 	stack_pointer--;
+	program_counter = call_stack[stack_pointer];
+
+	std::cout << "program_counter:" << std::hex << program_counter << std::endl;
 }
 
 
@@ -422,6 +449,10 @@ void Chip8::_call(unsigned short address)
 	}
 
 	call_stack[stack_pointer] = program_counter;
+	stack_pointer++;
+	std::cout << "program_counter:" << std::hex << program_counter << std::endl;
+
+
 	program_counter = address;
 }
 
