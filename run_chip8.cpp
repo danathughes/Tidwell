@@ -25,6 +25,8 @@ int main(int argc, char** argv)
 	chip8->load("maze.ch8");
 	chip8->reset();
 
+	chip8->press_key(3);
+
 	std::cout << "Chip 8: " << std::hex << chip8 << std::endl;
 
 	// Build the GUI, and start it up!

@@ -3,6 +3,7 @@
 #include <gtk/gtk.h>
 #include <iostream>
 #include <sstream>
+#include <string>
 
 extern "C" {
 
@@ -111,6 +112,26 @@ void on_run_button_toggled(GtkWidget* widget, gpointer data)
 }
 
 
+void on_button_pressed(GtkWidget* widget, gpointer data)
+{
+	GladeGui* gui = (GladeGui*) data;
+
+	unsigned char button_num = (unsigned char) std::stoi(gtk_widget_get_name(widget), NULL, 16);
+
+	gui->press_key(button_num);
+}
+
+
+void on_button_released(GtkWidget* widget, gpointer data)
+{
+	GladeGui* gui = (GladeGui*) data;
+
+	unsigned char button_num = (unsigned char) std::stoi(gtk_widget_get_name(widget), NULL, 16);
+
+	gui->release_key(button_num);
+}
+
+
 GladeGui::GladeGui(Chip8* chip, int argc, char** argv)
 {
 	// Initialize Gtk
@@ -139,6 +160,19 @@ bool GladeGui::get_pixel(unsigned char x, unsigned char y)
 {
 	return chip8->get_pixel(x,y);
 }
+
+void GladeGui::press_key(unsigned char key_num)
+{
+	std::cout << "gui " << std::endl;
+	chip8->press_key(key_num);
+}
+
+void GladeGui::release_key(unsigned char key_num)
+{
+	std::cout << "gui " << std::endl;
+	chip8->release_key(key_num);
+}
+
 
 void GladeGui::cycle_chip()
 {
@@ -246,6 +280,28 @@ void GladeGui::link_widgets(GtkBuilder* builder)
 }
 
 
+void GladeGui::link_keyboard(GtkBuilder* builder)
+{
+	std::stringstream ss;
+	GtkWidget* key;
+
+	for(int i=0; i<16; i++)
+	{
+		ss.clear();
+		ss.str(std::string());
+		ss << "button_" << std::hex << i;
+
+		key = GTK_WIDGET(gtk_builder_get_object(builder, ss.str().c_str()));
+
+		ss.clear();
+		ss.str(std::string());
+		ss << std::hex << i;
+
+		gtk_widget_set_name(key, ss.str().c_str());
+	}
+}
+
+
 void GladeGui::build()
 {
 	GtkBuilder* builder;
@@ -260,6 +316,7 @@ void GladeGui::build()
 
 	// Collect references to needed widgets--register value text areas, display, etc.
 	link_widgets(builder);
+	link_keyboard(builder);
 	display = GTK_WIDGET(gtk_builder_get_object(builder, "display"));
 
 	// Connect the signals.  All signals are going to pass the instance of this object as

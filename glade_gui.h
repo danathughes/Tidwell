@@ -22,6 +22,8 @@ class GladeGui
 
 
 		void link_widgets(GtkBuilder*);
+		void link_keyboard(GtkBuilder*);
+
 		const char* byte_to_string(unsigned char);
 		const char* short_to_string(unsigned short);
 		const char* byte_to_string(unsigned char, bool);
@@ -37,6 +39,8 @@ class GladeGui
 
 		void update_registers();
 		bool get_pixel(unsigned char, unsigned char);
+		void press_key(unsigned char);
+		void release_key(unsigned char);
 
 		bool need_refresh();
 

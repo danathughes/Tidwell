@@ -244,6 +244,8 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
+                                <signal name="button-press-event" handler="on_button_pressed" swapped="no"/>
+                                <signal name="button-release-event" handler="on_button_released" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="left_attach">0</property>
@@ -256,6 +258,8 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
+                                <signal name="button-press-event" handler="on_button_pressed" swapped="no"/>
+                                <signal name="button-release-event" handler="on_button_released" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="left_attach">0</property>
@@ -268,6 +272,8 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
+                                <signal name="button-press-event" handler="on_button_pressed" swapped="no"/>
+                                <signal name="button-release-event" handler="on_button_released" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="left_attach">0</property>
@@ -275,11 +281,13 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkButton" id="button_A">
+                              <object class="GtkButton" id="button_a">
                                 <property name="label" translatable="yes">A</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
+                                <signal name="button-press-event" handler="on_button_pressed" swapped="no"/>
+                                <signal name="button-release-event" handler="on_button_released" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="left_attach">0</property>
@@ -292,6 +300,8 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
+                                <signal name="button-press-event" handler="on_button_pressed" swapped="no"/>
+                                <signal name="button-release-event" handler="on_button_released" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -304,6 +314,8 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
+                                <signal name="button-press-event" handler="on_button_pressed" swapped="no"/>
+                                <signal name="button-release-event" handler="on_button_released" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -316,6 +328,8 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
+                                <signal name="button-press-event" handler="on_button_pressed" swapped="no"/>
+                                <signal name="button-release-event" handler="on_button_released" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -328,6 +342,8 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
+                                <signal name="button-press-event" handler="on_button_pressed" swapped="no"/>
+                                <signal name="button-release-event" handler="on_button_released" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -340,6 +356,8 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
+                                <signal name="button-press-event" handler="on_button_pressed" swapped="no"/>
+                                <signal name="button-release-event" handler="on_button_released" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="left_attach">2</property>
@@ -352,6 +370,8 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
+                                <signal name="button-press-event" handler="on_button_pressed" swapped="no"/>
+                                <signal name="button-release-event" handler="on_button_released" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="left_attach">2</property>
@@ -364,6 +384,8 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
+                                <signal name="button-press-event" handler="on_button_pressed" swapped="no"/>
+                                <signal name="button-release-event" handler="on_button_released" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="left_attach">2</property>
@@ -371,11 +393,13 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkButton" id="button_B">
+                              <object class="GtkButton" id="button_b">
                                 <property name="label" translatable="yes">B</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
+                                <signal name="button-press-event" handler="on_button_pressed" swapped="no"/>
+                                <signal name="button-release-event" handler="on_button_released" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="left_attach">2</property>
@@ -383,11 +407,13 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkButton" id="button_C">
+                              <object class="GtkButton" id="button_c">
                                 <property name="label" translatable="yes">C</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
+                                <signal name="button-press-event" handler="on_button_pressed" swapped="no"/>
+                                <signal name="button-release-event" handler="on_button_released" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="left_attach">3</property>
@@ -395,11 +421,13 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkButton" id="button_D">
+                              <object class="GtkButton" id="button_d">
                                 <property name="label" translatable="yes">D</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
+                                <signal name="button-press-event" handler="on_button_pressed" swapped="no"/>
+                                <signal name="button-release-event" handler="on_button_released" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="left_attach">3</property>
@@ -407,11 +435,13 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkButton" id="button_E">
+                              <object class="GtkButton" id="button_e">
                                 <property name="label" translatable="yes">E</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
+                                <signal name="button-press-event" handler="on_button_pressed" swapped="no"/>
+                                <signal name="button-release-event" handler="on_button_released" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="left_attach">3</property>
@@ -419,11 +449,13 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkButton" id="button_F">
+                              <object class="GtkButton" id="button_f">
                                 <property name="label" translatable="yes">F</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
+                                <signal name="button-press-event" handler="on_button_pressed" swapped="no"/>
+                                <signal name="button-release-event" handler="on_button_released" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="left_attach">3</property>

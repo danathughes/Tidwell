@@ -1,5 +1,7 @@
 #include "keyboard.h"
 
+#include <iostream>
+
 Keyboard::Keyboard()
 {
 	for(int i=0; i<0x0F; i++)
@@ -15,10 +17,12 @@ bool Keyboard::is_key_pressed(unsigned char key)
 
 void Keyboard::press_key(unsigned char key)
 {
+	std::cout << "keyboard " << (int) key << std::endl;
 	keys[key] = true;
 }
 
 void Keyboard::release_key(unsigned char key)
 {
+	std::cout << "keyboard" << (int) key << std::endl;
 	keys[key] = false;
 }

@@ -110,6 +110,8 @@ class Chip8
 
 		// Access to the display
 		bool get_pixel(unsigned char, unsigned char);
+		void press_key(unsigned char);
+		void release_key(unsigned char);
 
 		bool refresh;
 };

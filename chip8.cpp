@@ -27,6 +27,9 @@ Chip8::Chip8()
 
 	refresh=false;
 
+	std::cout << "Memory: " << memory << std::endl;
+	std::cout << "Keyboard: " << keyboard << std::endl;
+	std::cout << "Display: " << display << std::endl;
 	// Seed a random number generator
 	srand(time(NULL));
 }
@@ -1015,4 +1018,18 @@ unsigned char Chip8::get_stack_pointer()
 bool Chip8::get_pixel(unsigned char x, unsigned char y)
 {
 	return display->get_pixel(x,y);
+}
+
+void Chip8::press_key(unsigned char key_num)
+{
+	std::cout << "chip8 " << (int) key_num << std::endl;
+	
+	std::cout << "Keyboard: " << keyboard << std::endl;
+	keyboard->press_key(key_num);
+}
+
+void Chip8::release_key(unsigned char key_num)
+{
+	std::cout << "chip8 " << std::endl;
+	keyboard->release_key(key_num);
 }
