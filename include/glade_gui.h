@@ -7,14 +7,12 @@
 #ifndef __GLADE_GUI_H__
 #define __GLADE_GUI_H__
 
+
 class GladeGui
 {
 	private:
 		// Components of the computer
 		Chip8* chip8;
-
-		// Is the gui running the chip
-
 
 		// Important widgets
 		GtkWidget* register_values[16];
@@ -44,6 +42,12 @@ class GladeGui
 		void run();
 
 		void update_registers();
+
+		void update_register(unsigned char, unsigned char);
+		void update_program_counter(unsigned short);
+		void update_stack_pointer(unsigned short);
+		void update_address_register(unsigned short);
+
 
 		bool need_refresh();
 		void fill_memory_display();

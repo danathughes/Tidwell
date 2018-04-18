@@ -355,6 +355,27 @@ void GladeGui::run()
 }
 
 
+void GladeGui::update_register(unsigned char register_number, unsigned char value)
+{
+
+}
+
+void GladeGui::update_program_counter(unsigned short value)
+{
+
+}
+
+void GladeGui::update_stack_pointer(unsigned short value)
+{
+
+}
+
+void update_address_register(unsigned short value)
+{
+
+}
+
+
 void GladeGui::fill_memory_display()
 {
 	gtk_label_set_text(GTK_LABEL (memory_display), computer->get_memory_string());
