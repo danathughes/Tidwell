@@ -1,6 +1,8 @@
 #ifndef __MEMORY_H__
 #define __MEMORY_H__
 
+#include <string>
+
 /******************
 * Memory
 *
@@ -35,6 +37,8 @@ class Memory
 		unsigned short get_display_size();
 
 		unsigned short get_sprite_address(unsigned char);
+
+		std::string to_string(unsigned int);
 
 };
 

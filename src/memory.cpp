@@ -3,6 +3,9 @@
 #include <iostream>
 #include <iomanip>
 
+#include <string>
+#include <sstream>
+
 /*****************
 * Memory()
 *
@@ -137,4 +140,63 @@ unsigned short Memory::get_sprite_address(unsigned char value)
 {
 	// Each sprite if 5 bytes in size
 	return _sprite_memory_start + 5*value;
+}
+
+
+/*******************
+* string to_string(unsigned int bytes_per_line)
+*
+* Create a string consisting of the bytes in memory.  Each line in the string
+* is formatted as follows:
+*
+* 0xXXXX: XX XX XX XX XX XX ...
+* 
+* The address of the first byte on the line is displayed, followed by the sequence of bytes
+* in memory.
+*******************/
+std::string Memory::to_string(unsigned int bytes_per_line)
+{
+	std::stringstream ss;
+
+	// Clear the string stream
+	ss.clear();
+	ss.str(std::string());
+
+	// Set the current address
+	unsigned short current_address = 0x0000;
+
+	// Loop through the address until all bytes are written to the string
+	while(current_address < memory_size)
+	{
+		// Should the address be written (i.e., new line?)
+		if((current_address % bytes_per_line) == 0)
+		{
+			ss << "0x";
+			// Prepend the address appropriately
+			if(current_address < 0x0FFF)	ss << "0";
+			if(current_address < 0x00FF)	ss << "0";
+			if(current_address < 0x000F)	ss << "0";
+
+			ss << std::hex << current_address << ": ";
+		}
+
+		// Write the current byte -- prepend a 0 if necessary
+		if(memory[current_address] < 0x0F)	ss << "0";
+
+		ss << std::hex << (unsigned short) memory[current_address];
+
+		// Increment the address, then write a space or newline as appropriate
+		current_address++;
+		if((current_address % bytes_per_line) == 0)
+		{
+			ss << "\n";
+		}
+		else
+		{
+			ss << " ";
+		}
+	}
+
+	// All done!
+	return ss.str();
 }

@@ -90,55 +90,10 @@ void Chip8::reset()
 
 
 
-/*************
-* load()
-*
-* Load a program into memory.
-************/
+
 void Chip8::load(const char* filename)
 {
-	// Open the file
-	std::ifstream romfile;
-	romfile.open(filename, std::ios::in | std::ios::binary);
-
-	// If the file didn't open, return
-	if(!romfile.is_open())
-	{
-		std::cout << "ERROR: File " << filename << " did not open!" << std::endl;
-		return;
-	}
-
-	// Load the entirity of the file into a char array, then write to memory
-	// NOTE:  Should the file just be passed to memory to load directly?
-
-	// Figure out how long the file is
-	long begin, end;
-	begin = romfile.tellg();
-	romfile.seekg(0, std::ios::end);
-	end = romfile.tellg();
-	int size = (int) (end - begin);
-
-	// Load the file
-	char* memblock = new char[size];
-
-	romfile.seekg(0, std::ios::beg);
-	romfile.read(memblock, size);
-	romfile.close();
-
-	// Dump the loaded file into memory
-	unsigned short start_address = memory->get_ram_start();
-	std::cout << "Start address of RAM: 0x" << std::hex << start_address << std::endl;
-	for(int i=0; i<size; i++)
-	{
-		memory->dump(start_address + i, memblock[i]);
-	}
-
-	delete [] memblock;
-
-	memory->print_memory(start_address, size);
-
-
-	std::cout << "Program Counter: " << std::hex << program_counter << std::endl;	
+	
 }
 
 /*************
@@ -1024,27 +979,15 @@ void Chip8::_load_register(unsigned char register_x)
 	}
 }
 
-
-
 void Chip8::_invalid_opcode(unsigned short opcode)
 {
 	std::cout << "INVALID OPCODE: 0x" << std::hex << opcode << std::endl;
 }
 
-
-
-void Chip8::test()
-{
-	std::cout << "Fetching memory at location 0x456: " << memory->fetch(0x456) << std::endl;
-	std::cout << "Attempting memory fetch at location 0x2345: "  << memory->fetch(0x2345) << std::endl;
-}
-
-
 unsigned char Chip8::get_register(unsigned char register_number)
 {
 	return registers[register_number];
 }
-
 
 unsigned short Chip8::get_address()
 {
@@ -1061,6 +1004,7 @@ unsigned char Chip8::get_stack_pointer()
 	return stack_pointer;
 }
 
+/*
 bool Chip8::get_pixel(unsigned char x, unsigned char y)
 {
 	return display->get_pixel(x,y);
@@ -1079,3 +1023,4 @@ void Chip8::release_key(unsigned char key_num)
 	std::cout << "chip8 " << std::endl;
 	keyboard->release_key(key_num);
 }
+*/

@@ -15,7 +15,7 @@ void _click_cycle(GtkWidget* widget, gpointer data)
 
 
 	// Cycle the chip
-	gui->cycle_chip();
+	gui->computer->cycle();
 
 	// Update registers, display, etc.
 	gui->update_registers();
@@ -46,7 +46,7 @@ void _draw_screen(GtkWidget* widget, cairo_t* cr, gpointer data)
 	{
 		for(unsigned char j=0; j<32; j++)
 		{
-			if(gui->get_pixel(i,j))
+			if(gui->computer->get_pixel(i,j))
 			{
 				int _x = 5 * (int) i;
 				int _y = 5 * (int) j;
@@ -80,7 +80,7 @@ gboolean _run(gpointer data)
 	if(gui->running)
 	{
 		// Cycle the chip
-		gui->cycle_chip();
+		gui->computer->cycle();
 
 		// Update registers, display, etc.
 		gui->update_registers();
@@ -119,7 +119,7 @@ void on_button_pressed(GtkWidget* widget, GdkEventExpose* event, gpointer data)
 
 	unsigned char button_num = (unsigned char) std::stoi(gtk_widget_get_name(widget), NULL, 16);
 
-	gui->press_key(button_num);
+	gui->computer->press_key(button_num);
 }
 
 
@@ -129,7 +129,7 @@ void on_button_released(GtkWidget* widget, GdkEventExpose* event, gpointer data)
 
 	unsigned char button_num = (unsigned char) std::stoi(gtk_widget_get_name(widget), NULL, 16);
 
-	gui->release_key(button_num);
+	gui->computer->release_key(button_num);
 }
 
 
@@ -144,22 +144,15 @@ GladeGui::GladeGui(Chip8* chip, int argc, char** argv)
 }
 
 
-GladeGui::GladeGui(Chip8* chip, Memory* _memory, Display* _display, Keyboard* _keyboard, int argc, char** argv)
+GladeGui::GladeGui(Chip8* chip, Computer* _computer, int argc, char** argv)
 {
 	// Initialize Gtk
 	gtk_init(&argc, &argv);
 
 	chip8 = chip;
-	memory = _memory;
-	display_buffer = _display;
-	keyboard = _keyboard;
+	computer = _computer;
 
 	running = false;
-
-	std::cout << "In GUI:" << std::endl;
-	std::cout << "Memory: " << std::hex << memory << std::endl;
-	std::cout << "Display: " << std::hex << display_buffer << std::endl;
-	std::cout << "Keyboard: " << std::hex << keyboard << std::endl;
 }
 
 
@@ -175,28 +168,28 @@ bool GladeGui::need_refresh()
 
 	return refresh;
 }
-
+/*
 bool GladeGui::get_pixel(unsigned char x, unsigned char y)
 {
-	return display_buffer->get_pixel(x,y);
+	return computer->get_pixel(x,y);
 }
 
 void GladeGui::press_key(unsigned char key_num)
 {
-	keyboard->press_key(key_num);
+	computer->press_key(key_num);
 }
 
 void GladeGui::release_key(unsigned char key_num)
 {
-	keyboard->release_key(key_num);
+	computer->release_key(key_num);
 }
 
 
 void GladeGui::cycle_chip()
 {
-	chip8->cycle();
+	computer->cycle();
 }
-
+*/
 
 const char* GladeGui::byte_to_string(unsigned char value)
 {
@@ -336,6 +329,7 @@ void GladeGui::build()
 	link_widgets(builder);
 	link_keyboard(builder);
 	display = GTK_WIDGET(gtk_builder_get_object(builder, "display"));
+	memory_display = GTK_WIDGET(gtk_builder_get_object(builder, "memory_display"));
 
 	// Connect the signals.  All signals are going to pass the instance of this object as
 	// user data, so that callback functions can access appropriate information.
@@ -347,15 +341,23 @@ void GladeGui::build()
 	gtk_widget_show(window);
 
 	update_registers();
+
+	fill_memory_display();
 }
 
 
 void GladeGui::run()
 {
 	// Start the timeout to call the run function
-	gint run_ref = g_timeout_add(1, _run, this);
+	gint run_ref = g_timeout_add(16, _run, this);
 
 	gtk_main();
 }
 
+
+void GladeGui::fill_memory_display()
+{
+	gtk_label_set_text(GTK_LABEL (memory_display), computer->get_memory_string());
 }
+
+}	// extern "C"

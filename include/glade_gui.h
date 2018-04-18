@@ -1,7 +1,5 @@
 #include "chip8.h"
-#include "memory.h"
-#include "display.h"
-#include "keyboard.h"
+#include "computer.h"
 
 #include <gtk/gtk.h>
 
@@ -14,9 +12,6 @@ class GladeGui
 	private:
 		// Components of the computer
 		Chip8* chip8;
-		Display* display_buffer;
-		Keyboard* keyboard;
-		Memory* memory;
 
 		// Is the gui running the chip
 
@@ -26,6 +21,8 @@ class GladeGui
 		GtkWidget* program_counter_value;
 		GtkWidget* stack_pointer_value;
 		GtkWidget* address_register_value;
+
+		GtkWidget* memory_display;
 
 
 		void link_widgets(GtkBuilder*);
@@ -38,20 +35,18 @@ class GladeGui
 
 	public:
 		GladeGui(Chip8*, int, char**);
-		GladeGui(Chip8*, Memory*, Display*, Keyboard*, int, char**);
-
+		GladeGui(Chip8*, Computer*, int, char**);
 		~GladeGui();
 
-		void cycle_chip();
+		Computer* computer;
+
 		void build();
 		void run();
 
 		void update_registers();
-		bool get_pixel(unsigned char, unsigned char);
-		void press_key(unsigned char);
-		void release_key(unsigned char);
 
 		bool need_refresh();
+		void fill_memory_display();
 
 		bool running;
 		GtkWidget* display;
