@@ -33,7 +33,7 @@ int main(int argc, char** argv)
 	computer->soft_reset();
 
 	// Build the GUI, and start it up!
-	GladeGui* gui = new GladeGui(chip8, computer, argc, argv);
+	GladeGui* gui = new GladeGui(computer, argc, argv);
 
 	chip8->add_listener(gui);
 	

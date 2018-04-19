@@ -816,7 +816,7 @@ void Chip8::_draw(unsigned char register_x, unsigned char register_y, unsigned c
 		registers[0x0F] = 0x01;
 	}
 
-	refresh=true;
+	gui->refresh_display();
 }
 
 

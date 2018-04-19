@@ -81,15 +81,6 @@ gboolean _run(gpointer data)
 	{
 		// Cycle the chip
 		gui->computer->cycle();
-
-		// Update registers, display, etc.
-//		gui->update_registers();
-
-		// Indicate that the display widget needs updating
-		if(gui->need_refresh())
-		{
-			gtk_widget_queue_draw(gui->display);
-		}
 	}
 
 	return true;
@@ -133,23 +124,20 @@ void on_button_released(GtkWidget* widget, GdkEventExpose* event, gpointer data)
 }
 
 
-GladeGui::GladeGui(Chip8* chip, int argc, char** argv)
+GladeGui::GladeGui(int argc, char** argv)
 {
 	// Initialize Gtk
 	gtk_init(&argc, &argv);
-
-	chip8 = chip;
 
 	running = false;
 }
 
 
-GladeGui::GladeGui(Chip8* chip, Computer* _computer, int argc, char** argv)
+GladeGui::GladeGui(Computer* _computer, int argc, char** argv)
 {
 	// Initialize Gtk
 	gtk_init(&argc, &argv);
 
-	chip8 = chip;
 	computer = _computer;
 
 	running = false;
@@ -161,43 +149,12 @@ GladeGui::~GladeGui()
 
 }
 
-bool GladeGui::need_refresh()
-{
-	bool refresh = chip8->refresh;
-	chip8->refresh = false;
-
-	return refresh;
-}
-/*
-bool GladeGui::get_pixel(unsigned char x, unsigned char y)
-{
-	return computer->get_pixel(x,y);
-}
-
-void GladeGui::press_key(unsigned char key_num)
-{
-	computer->press_key(key_num);
-}
-
-void GladeGui::release_key(unsigned char key_num)
-{
-	computer->release_key(key_num);
-}
 
 
-void GladeGui::cycle_chip()
-{
-	computer->cycle();
-}
-*/
-
-const char* GladeGui::byte_to_string(unsigned char value)
-{
-	return byte_to_string(value, true);
-}
 
 
-const char* GladeGui::byte_to_string(unsigned char value, bool prepend_0x)
+
+const char* byte_to_string(unsigned char value, bool prepend_0x)
 {
 	std::stringstream ss;
 
@@ -218,14 +175,14 @@ const char* GladeGui::byte_to_string(unsigned char value, bool prepend_0x)
 	return ss.str().c_str();
 }
 
-
-const char* GladeGui::short_to_string(unsigned short value)
+/*
+const char* byte_to_string(unsigned char value)
 {
-	return short_to_string(value, true);
+	return byte_to_string(value, true);
 }
+*/
 
-
-const char* GladeGui::short_to_string(unsigned short value, bool prepend_0x)
+const char* short_to_string(unsigned short value, bool prepend_0x)
 {
 	std::stringstream ss;
 
@@ -250,22 +207,11 @@ const char* GladeGui::short_to_string(unsigned short value, bool prepend_0x)
 }
 
 /*
-void GladeGui::update_registers()
+const char* short_to_string(unsigned short value)
 {
-	// Update the register_values
-	for(unsigned char i=0; i<16; i++)
-	{
-		gtk_label_set_text(GTK_LABEL (register_values[i]), byte_to_string(chip8->get_register(i)));
-	}
-
-	// Update the program counter value and stack pointer value
-	gtk_label_set_text(GTK_LABEL (program_counter_value), short_to_string(chip8->get_program_counter()));
-	gtk_label_set_text(GTK_LABEL (stack_pointer_value), short_to_string(chip8->get_stack_pointer()));
-	gtk_label_set_text(GTK_LABEL (address_register_value), short_to_string(chip8->get_address()));	
+	return short_to_string(value, true);
 }
 */
-
-
 
 void GladeGui::link_widgets(GtkBuilder* builder)
 {
@@ -337,12 +283,9 @@ void GladeGui::build()
 	// user data, so that callback functions can access appropriate information.
 	gtk_builder_connect_signals(builder, this);
 
-
 	g_object_unref(builder);
 
 	gtk_widget_show(window);
-
-//	update_registers();
 
 	fill_memory_display();
 }
@@ -357,24 +300,27 @@ void GladeGui::run()
 }
 
 
+
+/* Listener Functions */
+
 void GladeGui::update_register(unsigned char register_number, unsigned char value)
 {
-	gtk_label_set_text(GTK_LABEL (register_values[register_number]), byte_to_string(value));
+	gtk_label_set_text(GTK_LABEL (register_values[register_number]), byte_to_string(value, true));
 }
 
 void GladeGui::update_program_counter(unsigned short value)
 {
-	gtk_label_set_text(GTK_LABEL (program_counter_value), short_to_string(value));
+	gtk_label_set_text(GTK_LABEL (program_counter_value), short_to_string(value, true));
 }
 
 void GladeGui::update_stack_pointer(unsigned short value)
 {
-	gtk_label_set_text(GTK_LABEL (stack_pointer_value), short_to_string(value));
+	gtk_label_set_text(GTK_LABEL (stack_pointer_value), short_to_string(value, true));
 }
 
 void GladeGui::update_address_register(unsigned short value)
 {
-	gtk_label_set_text(GTK_LABEL (address_register_value), short_to_string(value));	
+	gtk_label_set_text(GTK_LABEL (address_register_value), short_to_string(value, true));	
 }
 
 
@@ -383,6 +329,11 @@ void GladeGui::fill_memory_display()
 	gtk_label_set_text(GTK_LABEL (memory_display), computer->get_memory_string());
 }
 
+
+void GladeGui::refresh_display()
+{
+	gtk_widget_queue_draw(display);
+}
 
 
 }	// extern "C"

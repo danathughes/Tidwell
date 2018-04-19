@@ -3,6 +3,8 @@
 
 class GladeGui;
 
+#include "chip_listener.h"
+
 #include "memory.h"
 #include "display.h"
 #include "keyboard.h"
