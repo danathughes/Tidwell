@@ -34,6 +34,9 @@ int main(int argc, char** argv)
 
 	// Build the GUI, and start it up!
 	GladeGui* gui = new GladeGui(chip8, computer, argc, argv);
+
+	chip8->add_listener(gui);
+	
 	gui->build();
 	gui->run();
 

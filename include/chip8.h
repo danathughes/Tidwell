@@ -1,6 +1,8 @@
 #ifndef __CHIP8_H__
 #define __CHIP8_H__
 
+class GladeGui;
+
 #include "memory.h"
 #include "display.h"
 #include "keyboard.h"
@@ -15,6 +17,8 @@ class Chip8
 		// External keyboard and display
 		Keyboard* keyboard;
 		Display* display;
+
+		GladeGui* gui;
 
 		// Registers -- V0 - VF
 		unsigned char registers[16];
@@ -102,6 +106,9 @@ class Chip8
 		void load(const char*);
 		void cycle();
 		void test();
+
+		// Listeners
+		void add_listener(GladeGui*);
 
 		// Access to program counter, stack pointer, registers, etc.
 		unsigned char get_register(unsigned char);

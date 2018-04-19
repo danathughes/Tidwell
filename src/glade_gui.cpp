@@ -18,7 +18,7 @@ void _click_cycle(GtkWidget* widget, gpointer data)
 	gui->computer->cycle();
 
 	// Update registers, display, etc.
-	gui->update_registers();
+//	gui->update_registers();
 
 	// Indicate that the display widget needs updating
 	gtk_widget_queue_draw(gui->display);
@@ -83,7 +83,7 @@ gboolean _run(gpointer data)
 		gui->computer->cycle();
 
 		// Update registers, display, etc.
-		gui->update_registers();
+//		gui->update_registers();
 
 		// Indicate that the display widget needs updating
 		if(gui->need_refresh())
@@ -249,7 +249,7 @@ const char* GladeGui::short_to_string(unsigned short value, bool prepend_0x)
 	return ss.str().c_str();
 }
 
-
+/*
 void GladeGui::update_registers()
 {
 	// Update the register_values
@@ -263,6 +263,8 @@ void GladeGui::update_registers()
 	gtk_label_set_text(GTK_LABEL (stack_pointer_value), short_to_string(chip8->get_stack_pointer()));
 	gtk_label_set_text(GTK_LABEL (address_register_value), short_to_string(chip8->get_address()));	
 }
+*/
+
 
 
 void GladeGui::link_widgets(GtkBuilder* builder)
@@ -340,7 +342,7 @@ void GladeGui::build()
 
 	gtk_widget_show(window);
 
-	update_registers();
+//	update_registers();
 
 	fill_memory_display();
 }
@@ -357,22 +359,22 @@ void GladeGui::run()
 
 void GladeGui::update_register(unsigned char register_number, unsigned char value)
 {
-
+	gtk_label_set_text(GTK_LABEL (register_values[register_number]), byte_to_string(value));
 }
 
 void GladeGui::update_program_counter(unsigned short value)
 {
-
+	gtk_label_set_text(GTK_LABEL (program_counter_value), short_to_string(value));
 }
 
 void GladeGui::update_stack_pointer(unsigned short value)
 {
-
+	gtk_label_set_text(GTK_LABEL (stack_pointer_value), short_to_string(value));
 }
 
-void update_address_register(unsigned short value)
+void GladeGui::update_address_register(unsigned short value)
 {
-
+	gtk_label_set_text(GTK_LABEL (address_register_value), short_to_string(value));	
 }
 
 
@@ -380,5 +382,7 @@ void GladeGui::fill_memory_display()
 {
 	gtk_label_set_text(GTK_LABEL (memory_display), computer->get_memory_string());
 }
+
+
 
 }	// extern "C"

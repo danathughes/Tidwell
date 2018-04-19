@@ -1,5 +1,6 @@
 
 #include "chip8.h"
+#include "glade_gui.h"
 
 #include "memory.h"
 #include "display.h"
@@ -89,6 +90,10 @@ void Chip8::reset()
 }
 
 
+void Chip8::add_listener(GladeGui* _gui)
+{
+	gui = _gui;
+}
 
 
 void Chip8::load(const char* filename)
@@ -317,6 +322,14 @@ void Chip8::cycle()
 			break;
 	}
 
+
+	for(unsigned char i=0; i<0x10; i++)
+	{
+		gui->update_register(i, registers[i]);
+	}
+	gui->update_program_counter(program_counter);
+	gui->update_stack_pointer(stack_pointer);
+	gui->update_address_register(address_register);
 
 }
 
@@ -1004,23 +1017,3 @@ unsigned char Chip8::get_stack_pointer()
 	return stack_pointer;
 }
 
-/*
-bool Chip8::get_pixel(unsigned char x, unsigned char y)
-{
-	return display->get_pixel(x,y);
-}
-
-void Chip8::press_key(unsigned char key_num)
-{
-	std::cout << "chip8 " << (int) key_num << std::endl;
-	
-	std::cout << "Keyboard: " << keyboard << std::endl;
-	keyboard->press_key(key_num);
-}
-
-void Chip8::release_key(unsigned char key_num)
-{
-	std::cout << "chip8 " << std::endl;
-	keyboard->release_key(key_num);
-}
-*/

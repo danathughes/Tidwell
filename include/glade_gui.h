@@ -1,12 +1,10 @@
+#ifndef __GLADE_GUI_H__
+#define __GLADE_GUI_H__
+
 #include "chip8.h"
 #include "computer.h"
 
 #include <gtk/gtk.h>
-
-
-#ifndef __GLADE_GUI_H__
-#define __GLADE_GUI_H__
-
 
 class GladeGui
 {
@@ -41,8 +39,7 @@ class GladeGui
 		void build();
 		void run();
 
-		void update_registers();
-
+		// Chip-8 Listener
 		void update_register(unsigned char, unsigned char);
 		void update_program_counter(unsigned short);
 		void update_stack_pointer(unsigned short);
