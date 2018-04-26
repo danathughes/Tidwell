@@ -1,6 +1,7 @@
 
 #include "chip8.h"
-#include "glade_gui.h"
+//#include "glade_gui.h"
+#include "chip_listener.h"
 
 #include "memory.h"
 #include "display.h"
@@ -90,7 +91,7 @@ void Chip8::reset()
 }
 
 
-void Chip8::add_listener(GladeGui* _gui)
+void Chip8::add_listener(ChipListener* _gui)
 {
 	gui = _gui;
 }
@@ -809,7 +810,9 @@ void Chip8::_draw(unsigned char register_x, unsigned char register_y, unsigned c
 	{
 		unsigned char line = memory->fetch(address_register + i);
 
-		collision = collision || display->write_line(x, y+i, line);
+		// NOTE:   Perform write_line first, otherwise short circuit could prevent
+		//         call to write_line
+		collision = display->write_line(x, y+i, line) || collision;
 	}
 	if(collision)
 	{

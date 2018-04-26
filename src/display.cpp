@@ -35,6 +35,14 @@ bool Display::set_pixel(unsigned char x, unsigned char y)
 }
 
 
+bool Display::flip_pixel(unsigned char x, unsigned char y)
+{
+	display[x][y] = !display[x][y];
+
+	return !display[x][y];
+}
+
+
 bool Display::get_pixel(unsigned char x, unsigned char y)
 {
 	return display[x][y];
@@ -64,10 +72,19 @@ bool Display::write_line(unsigned char x, unsigned char y, unsigned char value)
 			_x -= 64;
 		}
 
-		if(is_high)
+		if(display[_x][_y] == is_high)
 		{
-			collision = collision || set_pixel(_x, _y);
-		} 
+			if(is_high)
+			{
+				collision = true;
+			}
+			display[_x][_y] = false;
+		}
+		else
+		{
+			display[_x][_y] = true;
+		}
+
 	}
 
 	return collision;

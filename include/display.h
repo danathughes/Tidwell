@@ -10,6 +10,8 @@ class Display
 		Display();
 
 		bool set_pixel(unsigned char, unsigned char);
+		bool flip_pixel(unsigned char, unsigned char);
+
 		bool get_pixel(unsigned char, unsigned char);
 		bool write_line(unsigned char, unsigned char, unsigned char);
 		void show();

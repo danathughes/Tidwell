@@ -124,15 +124,6 @@ void on_button_released(GtkWidget* widget, GdkEventExpose* event, gpointer data)
 }
 
 
-GladeGui::GladeGui(int argc, char** argv)
-{
-	// Initialize Gtk
-	gtk_init(&argc, &argv);
-
-	running = false;
-}
-
-
 GladeGui::GladeGui(Computer* _computer, int argc, char** argv)
 {
 	// Initialize Gtk
@@ -148,10 +139,6 @@ GladeGui::~GladeGui()
 {
 
 }
-
-
-
-
 
 
 const char* byte_to_string(unsigned char value, bool prepend_0x)
@@ -294,7 +281,7 @@ void GladeGui::build()
 void GladeGui::run()
 {
 	// Start the timeout to call the run function
-	gint run_ref = g_timeout_add(16, _run, this);
+	gint run_ref = g_timeout_add(1, _run, this);
 
 	gtk_main();
 }

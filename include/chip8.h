@@ -20,7 +20,7 @@ class Chip8
 		Keyboard* keyboard;
 		Display* display;
 
-		GladeGui* gui;
+		ChipListener* gui;
 
 		// Registers -- V0 - VF
 		unsigned char registers[16];
@@ -110,7 +110,7 @@ class Chip8
 		void test();
 
 		// Listeners
-		void add_listener(GladeGui*);
+		void add_listener(ChipListener*);
 
 		// Access to program counter, stack pointer, registers, etc.
 		unsigned char get_register(unsigned char);

@@ -6,7 +6,7 @@
 
 #include <gtk/gtk.h>
 
-class GladeGui //: public ChipListener
+class GladeGui : public ChipListener
 {
 	private:
 
@@ -21,7 +21,6 @@ class GladeGui //: public ChipListener
 		void link_keyboard(GtkBuilder*);
 
 	public:
-		GladeGui(int, char**);
 		GladeGui(Computer*, int, char**);
 		~GladeGui();
 
