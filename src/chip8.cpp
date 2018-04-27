@@ -97,11 +97,6 @@ void Chip8::add_listener(ChipListener* _gui)
 }
 
 
-void Chip8::load(const char* filename)
-{
-	
-}
-
 /*************
 * cycle()
 *
@@ -123,6 +118,8 @@ void Chip8::cycle()
 	{
 		sound_timer--;
 	}
+
+	std::cout << "Delay Timer: " << (unsigned short) delay_timer << "  Sound Timer: " << (unsigned short) sound_timer << std::endl;
 
 	// Pull out all possible variables from the opcode
 	unsigned short address = 	(unsigned short) (opcode & 0x0FFF);			// 12-bit value
@@ -346,6 +343,7 @@ void Chip8::cycle()
 *********************/
 void Chip8::_clear_screen()
 {
+	/*
 	// What are the bounds of the display memory?
 	unsigned short display_start = memory->get_display_start();
 	unsigned short display_end = display_start + memory->get_display_size();
@@ -355,6 +353,7 @@ void Chip8::_clear_screen()
 	{
 		memory->dump(address, 0x00);
 	}
+	*/
 
 	display->clear();
 }

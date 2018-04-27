@@ -29,7 +29,6 @@ int main(int argc, char** argv)
 
 	Computer* computer = new Computer(chip8, memory, display, keyboard);
 
-	computer->load("minimal.ch8");
 	computer->soft_reset();
 
 	// Build the GUI, and start it up!

@@ -41,6 +41,8 @@ class GladeGui : public ChipListener
 
 		bool running;
 		GtkWidget* display;
+
+		GtkWidget* load_rom_dialog;
 };
 
 #endif

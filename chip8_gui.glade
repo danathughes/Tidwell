@@ -4,6 +4,7 @@
   <requires lib="gtk+" version="3.12"/>
   <object class="GtkWindow" id="window_main">
     <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Chip 8</property>
     <property name="default_width">640</property>
     <property name="default_height">480</property>
     <signal name="destroy" handler="on_window_main_destroy" swapped="no"/>
@@ -13,7 +14,7 @@
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkMenuBar" id="menubar1">
+          <object class="GtkMenuBar" id="menubar">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
@@ -26,6 +27,15 @@
                   <object class="GtkMenu" id="menu1">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkMenuItem" id="load_rom_menu_item">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">_Load ROM</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="on_load_rom_activate" swapped="no"/>
+                      </object>
+                    </child>
                   </object>
                 </child>
               </object>
@@ -458,6 +468,9 @@
                     <property name="margin_top">5</property>
                     <property name="margin_bottom">5</property>
                     <property name="label" translatable="yes">0x0000</property>
+                    <attributes>
+                      <attribute name="font-desc" value="Monospace 10"/>
+                    </attributes>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -473,6 +486,9 @@
                     <property name="margin_top">5</property>
                     <property name="margin_bottom">5</property>
                     <property name="label" translatable="yes">0x0000</property>
+                    <attributes>
+                      <attribute name="font-desc" value="Monospace 10"/>
+                    </attributes>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -536,6 +552,9 @@
                             <property name="margin_top">5</property>
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">V0</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace Bold 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">0</property>
@@ -553,6 +572,9 @@
                             <property name="margin_top">5</property>
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">V1</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace Bold 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">0</property>
@@ -570,6 +592,9 @@
                             <property name="margin_top">5</property>
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">V2</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace Bold 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">0</property>
@@ -586,6 +611,9 @@
                             <property name="margin_top">5</property>
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">V3</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace Bold 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">0</property>
@@ -603,6 +631,9 @@
                             <property name="margin_top">5</property>
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">V4</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace Bold 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">2</property>
@@ -621,6 +652,9 @@
                             <property name="margin_top">5</property>
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">V5</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace Bold 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">2</property>
@@ -638,6 +672,9 @@
                             <property name="margin_top">5</property>
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">V6</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace Bold 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">2</property>
@@ -655,6 +692,9 @@
                             <property name="margin_top">5</property>
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">V7</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace Bold 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">2</property>
@@ -672,6 +712,9 @@
                             <property name="margin_top">5</property>
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">V8</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace Bold 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">4</property>
@@ -689,6 +732,9 @@
                             <property name="margin_top">5</property>
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">V9</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace Bold 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">4</property>
@@ -706,6 +752,9 @@
                             <property name="margin_top">5</property>
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">VA</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace Bold 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">4</property>
@@ -723,6 +772,9 @@
                             <property name="margin_top">5</property>
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">VB</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace Bold 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">4</property>
@@ -740,6 +792,9 @@
                             <property name="margin_top">5</property>
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">VC</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace Bold 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">6</property>
@@ -757,6 +812,9 @@
                             <property name="margin_top">5</property>
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">VD</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace Bold 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">6</property>
@@ -774,6 +832,9 @@
                             <property name="margin_top">5</property>
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">VE</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace Bold 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">6</property>
@@ -791,6 +852,9 @@
                             <property name="margin_top">5</property>
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">VF</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace Bold 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">6</property>
@@ -809,6 +873,9 @@
                             <property name="label" translatable="yes">0x00</property>
                             <property name="ellipsize">end</property>
                             <property name="lines">1</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -825,6 +892,9 @@
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">0x00</property>
                             <property name="lines">1</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -841,6 +911,9 @@
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">0x00</property>
                             <property name="lines">1</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -857,6 +930,9 @@
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">0x00</property>
                             <property name="lines">1</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -873,6 +949,9 @@
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">0x00</property>
                             <property name="lines">1</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">3</property>
@@ -889,6 +968,9 @@
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">0x00</property>
                             <property name="lines">1</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">3</property>
@@ -905,6 +987,9 @@
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">0x00</property>
                             <property name="lines">1</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">3</property>
@@ -921,6 +1006,9 @@
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">0x00</property>
                             <property name="lines">1</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">3</property>
@@ -937,6 +1025,9 @@
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">0x00</property>
                             <property name="lines">1</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">5</property>
@@ -953,6 +1044,9 @@
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">0x00</property>
                             <property name="lines">1</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">5</property>
@@ -969,6 +1063,9 @@
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">0x00</property>
                             <property name="lines">1</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">5</property>
@@ -985,6 +1082,9 @@
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">0x00</property>
                             <property name="lines">1</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">5</property>
@@ -1001,6 +1101,9 @@
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">0x00</property>
                             <property name="lines">1</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">7</property>
@@ -1017,6 +1120,9 @@
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">0x00</property>
                             <property name="lines">1</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">7</property>
@@ -1033,6 +1139,9 @@
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">0x00</property>
                             <property name="lines">1</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">7</property>
@@ -1049,6 +1158,9 @@
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">0x00</property>
                             <property name="lines">1</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">7</property>
@@ -1146,6 +1258,9 @@
                             <property name="margin_top">5</property>
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">0x0000</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -1161,6 +1276,9 @@
                             <property name="margin_top">5</property>
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">0x0000</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -1176,6 +1294,9 @@
                             <property name="margin_top">5</property>
                             <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">0x0000</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Monospace 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -1283,7 +1404,7 @@
                             <property name="can_focus">False</property>
                             <property name="justify">fill</property>
                             <attributes>
-                              <attribute name="font-desc" value="Liberation Mono 10"/>
+                              <attribute name="font-desc" value="Liberation Mono 16"/>
                             </attributes>
                           </object>
                         </child>
@@ -1328,5 +1449,66 @@
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkFileChooserDialog" id="load_rom_dialog">
+    <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Load ROM</property>
+    <property name="modal">True</property>
+    <property name="type_hint">dialog</property>
+    <property name="transient_for">window_main</property>
+    <property name="create_folders">False</property>
+    <child internal-child="vbox">
+      <object class="GtkBox" id="filechooserdialog-vbox1">
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox" id="filechooserdialog-action_area1">
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="load_rom_open_button">
+                <property name="label">gtk-open</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="load_rom_cancel_button">
+                <property name="label">gtk-cancel</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="1">load_rom_open_button</action-widget>
+      <action-widget response="2">load_rom_cancel_button</action-widget>
+    </action-widgets>
   </object>
 </interface>

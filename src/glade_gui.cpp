@@ -92,15 +92,35 @@ void on_run_button_toggled(GtkWidget* widget, gpointer data)
 	GladeGui* gui = (GladeGui*) data;
 
 	gui->running = !gui->running;
+}
 
-	if(gui->running)
+
+void on_load_rom_activate(GtkWidget* widget, gpointer data)
+{
+	GladeGui* gui = (GladeGui*) data;
+
+	gint response = gtk_dialog_run(GTK_DIALOG(gui->load_rom_dialog));
+
+	// If the user selected a file, load it into the computer
+	if (response == 1)		// Is there a predefined response ID associated with buttons?
 	{
-		std::cout << "Running..." << std::endl;
+		// If the user opened a new file, stop any current executing program
+		if(gui->running)
+		{
+			gui->running = false;
+		}
+
+		char* filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(gui->load_rom_dialog));
+		gui->computer->load(filename);
+
+		// Reset the computer 
+		gui->computer->soft_reset();
+
+		// Refresh the memory display
+		gui->fill_memory_display();
 	}
-	else
-	{
-		std::cout << "Stopped" << std::endl;
-	}
+
+	gtk_widget_hide(gui->load_rom_dialog);
 }
 
 
@@ -266,6 +286,9 @@ void GladeGui::build()
 	display = GTK_WIDGET(gtk_builder_get_object(builder, "display"));
 	memory_display = GTK_WIDGET(gtk_builder_get_object(builder, "memory_display"));
 
+	// References to the various dialog boxes (loading a rom, about, etc.)
+	load_rom_dialog = GTK_WIDGET(gtk_builder_get_object(builder, "load_rom_dialog"));
+
 	// Connect the signals.  All signals are going to pass the instance of this object as
 	// user data, so that callback functions can access appropriate information.
 	gtk_builder_connect_signals(builder, this);
@@ -281,7 +304,7 @@ void GladeGui::build()
 void GladeGui::run()
 {
 	// Start the timeout to call the run function
-	gint run_ref = g_timeout_add(1, _run, this);
+	gint run_ref = g_timeout_add(16, _run, this);
 
 	gtk_main();
 }

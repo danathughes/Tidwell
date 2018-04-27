@@ -67,7 +67,7 @@ bool Display::write_line(unsigned char x, unsigned char y, unsigned char value)
 		bool is_high = ( (value >> (7-i)) & 0x01) == 0x01;
 
 		_x = x + i;
-		if(_x > 64)
+		if(_x >= 64)
 		{
 			_x -= 64;
 		}

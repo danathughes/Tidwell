@@ -33,8 +33,8 @@ class Chip8
 		unsigned char stack_pointer;
 
 		// Timers
-		unsigned char delay_timer;
-		unsigned char sound_timer;
+		unsigned short delay_timer;
+		unsigned short sound_timer;
 
 		// Program counter
 		unsigned short program_counter;
@@ -105,7 +105,7 @@ class Chip8
 		// High-level instructions to reset the chip, load a program,
 		// and perform a clock cycle
 		void reset();
-		void load(const char*);
+//		void load(const char*);
 		void cycle();
 		void test();
 

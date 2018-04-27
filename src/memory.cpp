@@ -74,7 +74,7 @@ unsigned char Memory::fetch(unsigned short address)
 	// Check to see if the address is within the memory size
 	if(address >= memory_size)
 	{
-		std::cout << "MEMORY ERROR: Attemping to access memory address " << address << ", memory size " << memory_size << std::endl;
+		std::cout << "MEMORY ERROR: Attemping to access memory address " << address << ", memory size " << (unsigned short) memory_size << std::endl;
 		return 0;			// What else to do?
 	}
 
