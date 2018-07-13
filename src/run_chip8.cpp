@@ -10,7 +10,9 @@
 
 #include "computer.h"
 
-#include "glade_gui.h"
+#include "clock.h"
+
+#include "gtkmm_gui.h"
 
 #include <iostream>
 
@@ -26,19 +28,24 @@ int main(int argc, char** argv)
 	Display* display = new Display();
 	Memory* memory = new Memory();
 	Chip8* chip8 = new Chip8(memory, display, keyboard);
+	Clock* clock = new Clock(chip8);
 
-	Computer* computer = new Computer(chip8, memory, display, keyboard);
+	Computer* computer = new Computer(chip8, clock, memory, display, keyboard);
 
 	computer->soft_reset();
 
 	// Build the GUI, and start it up!
-	GladeGui* gui = new GladeGui(computer, argc, argv);
+	GtkmmGui* gui = new GtkmmGui(computer, argc, argv);
 
 	chip8->add_listener(gui);
 	
+	clock->start();
+//	clock->run();
+
 	gui->build();
 	gui->run();
 
+	delete clock;
 
 	return 0;
 }

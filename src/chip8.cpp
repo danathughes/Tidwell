@@ -29,9 +29,6 @@ Chip8::Chip8()
 
 	refresh=false;
 
-	std::cout << "Memory: " << memory << std::endl;
-	std::cout << "Keyboard: " << keyboard << std::endl;
-	std::cout << "Display: " << display << std::endl;
 	// Seed a random number generator
 	srand(time(NULL));
 }
@@ -51,10 +48,6 @@ Chip8::Chip8(Memory* _memory, Display* _display, Keyboard* _keyboard)
 
 	refresh=false;
 
-	std::cout << "In Chip:" << std::endl;
-	std::cout << "Memory: " << memory << std::endl;
-	std::cout << "Display: " << display << std::endl;
-	std::cout << "Keyboard: " << keyboard << std::endl;
 	// Seed a random number generator
 	srand(time(NULL));
 }
@@ -97,6 +90,25 @@ void Chip8::add_listener(ChipListener* _gui)
 }
 
 
+void Chip8::cycle_delay()
+{
+	if(delay_timer > 0)
+	{
+		delay_timer--;
+		gui->update_delay_timer(delay_timer);
+	}
+}
+
+
+void Chip8::cycle_sound()
+{
+	if(sound_timer > 0)
+	{
+		sound_timer--;
+		gui->update_sound_timer(sound_timer);
+	}
+}
+
 /*************
 * cycle()
 *
@@ -109,18 +121,7 @@ void Chip8::cycle()
 	unsigned short opcode = (memory->fetch(program_counter) << 8) | (memory->fetch(program_counter + 1));
 	program_counter += 2;
 
-	// Decrement the audio and delay timers, if non-zero
-	if(delay_timer > 0)
-	{
-		delay_timer--;
-	}
-	if(sound_timer > 0)
-	{
-		sound_timer--;
-	}
-
-	std::cout << "Delay Timer: " << (unsigned short) delay_timer << "  Sound Timer: " << (unsigned short) sound_timer << std::endl;
-
+	
 	// Pull out all possible variables from the opcode
 	unsigned short address = 	(unsigned short) (opcode & 0x0FFF);			// 12-bit value
 	unsigned char register_x = 	(unsigned char) ((opcode & 0x0F00) >> 8);	// 2nd nybble
@@ -128,16 +129,6 @@ void Chip8::cycle()
 	unsigned char value =		(unsigned char) (opcode & 0x00FF);			// Last byte used as value
 	unsigned char nybble = 		(unsigned char) (opcode & 0x000F);
 
-	/*
-	std::cout << "Cycle --- Opcode: 0x" << std::hex << opcode << "  ";
-	std::cout << "Address: 0x" << std::hex << address << "  ";
-	std::cout << "Vx: 0x" << std::hex << (unsigned short) register_x << "  ";
-	std::cout << "Vy: 0x" << std::hex << (unsigned short) register_y << "  ";
-	std::cout << "Value: 0x" << std::hex << (unsigned short) value << std::endl;
-	std::cout << "          Program Counter: 0x" << std::hex << program_counter << std::endl << std::endl;
-
-//	display->show();
-	*/
 
 	// Decode the opcode and act accordingly
 	// opcodes are organized roughly by first nybble
@@ -343,18 +334,6 @@ void Chip8::cycle()
 *********************/
 void Chip8::_clear_screen()
 {
-	/*
-	// What are the bounds of the display memory?
-	unsigned short display_start = memory->get_display_start();
-	unsigned short display_end = display_start + memory->get_display_size();
-
-	// Set all the bits in memory associated with the screen to 0
-	for(unsigned short address=display_start; address<display_end; address++)
-	{
-		memory->dump(address, 0x00);
-	}
-	*/
-
 	display->clear();
 }
 
@@ -428,7 +407,6 @@ void Chip8::_call(unsigned short address)
 
 	call_stack[stack_pointer] = program_counter;
 	stack_pointer++;
-
 
 	program_counter = address;
 }
@@ -896,6 +874,8 @@ void Chip8::_get_delay_timer(unsigned char register_x)
 void Chip8::_set_delay_timer(unsigned char register_x)
 {
 	delay_timer = registers[register_x];
+
+	gui->update_delay_timer(delay_timer);
 }
 
 
@@ -910,6 +890,8 @@ void Chip8::_set_delay_timer(unsigned char register_x)
 void Chip8::_set_sound_timer(unsigned char register_x)
 {
 	sound_timer = registers[register_x];
+
+	gui->update_sound_timer(sound_timer);
 }
 
 

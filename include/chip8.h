@@ -107,6 +107,8 @@ class Chip8
 		void reset();
 //		void load(const char*);
 		void cycle();
+		void cycle_delay();
+		void cycle_sound();
 		void test();
 
 		// Listeners

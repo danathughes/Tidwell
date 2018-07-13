@@ -21,6 +21,11 @@ Memory::Memory()
 	memory_size = 0x1000;
 	memory = new unsigned char[memory_size];
 
+	for(int i=0; i<memory_size; i++)
+	{
+		memory[i] = 0x00;
+	}
+
 	_system_memory_start = 0x000;
 	_ram_start = 0x200;
 	_call_stack_start = 0xEA0;

@@ -31,6 +31,7 @@
                       <object class="GtkMenuItem" id="load_rom_menu_item">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="action_name">load_rom_action</property>
                         <property name="label" translatable="yes">_Load ROM</property>
                         <property name="use_underline">True</property>
                         <signal name="activate" handler="on_load_rom_activate" swapped="no"/>
@@ -1455,6 +1456,7 @@
     <property name="title" translatable="yes">Load ROM</property>
     <property name="modal">True</property>
     <property name="type_hint">dialog</property>
+    <property name="gravity">static</property>
     <property name="transient_for">window_main</property>
     <property name="create_folders">False</property>
     <child internal-child="vbox">
@@ -1473,6 +1475,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_stock">True</property>
+                <property name="xalign">0.43000000715255737</property>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -1487,6 +1490,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_stock">True</property>
+                <property name="xalign">0.46000000834465027</property>
               </object>
               <packing>
                 <property name="expand">True</property>
