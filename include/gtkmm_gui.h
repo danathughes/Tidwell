@@ -24,6 +24,7 @@ class GtkmmGui : public ChipListener
 		Gtk::Label* stack_pointer_value;
 		Gtk::Label* address_register_value;
 		Gtk::Label* memory_display;
+		Gtk::Label* stack_display;
 
 		Gtk::Label* sound_timer_value;
 		Gtk::Label* delay_timer_value;
@@ -66,13 +67,15 @@ class GtkmmGui : public ChipListener
 		void update_program_counter(unsigned short);
 		void update_stack_pointer(unsigned short);
 		void update_address_register(unsigned short);
-
 		void update_delay_timer(unsigned short);
 		void update_sound_timer(unsigned short);
 
+		void update_memory();
+
+
 		void refresh_display();
 
-		void fill_memory_display();
+		void update_stack(unsigned short*, unsigned char, unsigned char);
 
 		bool running;
 };

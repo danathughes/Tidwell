@@ -87,6 +87,9 @@ void Chip8::reset()
 void Chip8::add_listener(ChipListener* _gui)
 {
 	gui = _gui;
+
+	gui->update_stack(call_stack, stack_pointer, CALL_STACK_SIZE);
+	gui->update_memory();
 }
 
 
@@ -121,6 +124,7 @@ void Chip8::cycle()
 	unsigned short opcode = (memory->fetch(program_counter) << 8) | (memory->fetch(program_counter + 1));
 	program_counter += 2;
 
+	gui->update_program_counter(program_counter);
 	
 	// Pull out all possible variables from the opcode
 	unsigned short address = 	(unsigned short) (opcode & 0x0FFF);			// 12-bit value
@@ -311,15 +315,6 @@ void Chip8::cycle()
 			break;
 	}
 
-
-	for(unsigned char i=0; i<0x10; i++)
-	{
-		gui->update_register(i, registers[i]);
-	}
-	gui->update_program_counter(program_counter);
-	gui->update_stack_pointer(stack_pointer);
-	gui->update_address_register(address_register);
-
 }
 
 
@@ -356,6 +351,11 @@ void Chip8::_return()
 	// Set the program counter to the address on the top of the stack
 	stack_pointer--;
 	program_counter = call_stack[stack_pointer];
+
+	// Update the stack as seen by any listeners
+	gui->update_stack(call_stack, stack_pointer, CALL_STACK_SIZE);
+	gui->update_stack_pointer(stack_pointer);
+	gui->update_program_counter(program_counter);
 }
 
 
@@ -384,6 +384,8 @@ void Chip8::_system_call(unsigned short address)
 void Chip8::_jump(unsigned short address)
 {
 	program_counter = address;
+
+	gui->update_program_counter(program_counter);
 }
 
 
@@ -409,6 +411,11 @@ void Chip8::_call(unsigned short address)
 	stack_pointer++;
 
 	program_counter = address;
+
+	// Update the stack as seen by any listeners
+	gui->update_stack(call_stack, stack_pointer, CALL_STACK_SIZE);
+	gui->update_stack_pointer(stack_pointer);
+	gui->update_program_counter(program_counter);
 }
 
 
@@ -427,6 +434,8 @@ void Chip8::_skip_equal_register_value(unsigned char register_x, unsigned char v
 	if(registers[register_x] == value)
 	{
 		program_counter += 2;
+
+		gui->update_program_counter(program_counter);
 	}
 }
 
@@ -446,6 +455,8 @@ void Chip8::_skip_not_equal_register_value(unsigned char register_x, unsigned ch
 	if(registers[register_x] != value)
 	{
 		program_counter += 2;
+
+		gui->update_program_counter(program_counter);
 	}
 }
 
@@ -464,6 +475,8 @@ void Chip8::_skip_equal_register_register(unsigned char register_x, unsigned cha
 	if(registers[register_x] == registers[register_y])
 	{
 		program_counter += 2;
+
+		gui->update_program_counter(program_counter);
 	}
 }
 
@@ -482,6 +495,8 @@ void Chip8::_skip_not_equal_register_register(unsigned char register_x, unsigned
 	if(registers[register_x] != registers[register_y])
 	{
 		program_counter += 2;
+
+		gui->update_program_counter(program_counter);
 	}
 
 }
@@ -499,6 +514,8 @@ void Chip8::_skip_not_equal_register_register(unsigned char register_x, unsigned
 void Chip8::_assign_register_value(unsigned char register_x, unsigned char value)
 {
 	registers[register_x] = value;
+
+	gui->update_register(register_x, registers[register_x]);
 }
 
 
@@ -514,6 +531,8 @@ void Chip8::_assign_register_value(unsigned char register_x, unsigned char value
 void Chip8::_add_register_value(unsigned char register_x, unsigned char value)
 {
 	registers[register_x] += value;
+
+	gui->update_register(register_x, registers[register_x]);	
 }
 
 
@@ -529,6 +548,8 @@ void Chip8::_add_register_value(unsigned char register_x, unsigned char value)
 void Chip8::_assign_register_register(unsigned char register_x, unsigned char register_y)
 {
 	registers[register_x] = registers[register_y];
+
+	gui->update_register(register_x, registers[register_x]);	
 }
 
 
@@ -544,6 +565,8 @@ void Chip8::_assign_register_register(unsigned char register_x, unsigned char re
 void Chip8::_or(unsigned char register_x, unsigned char register_y)
 {
 	registers[register_x] = registers[register_x] | registers[register_y];
+
+	gui->update_register(register_x, registers[register_x]);	
 }
 
 
@@ -559,6 +582,8 @@ void Chip8::_or(unsigned char register_x, unsigned char register_y)
 void Chip8::_and(unsigned char register_x, unsigned char register_y)
 {
 	registers[register_x] = registers[register_x] & registers[register_y];
+
+	gui->update_register(register_x, registers[register_x]);
 }
 
 
@@ -574,6 +599,8 @@ void Chip8::_and(unsigned char register_x, unsigned char register_y)
 void Chip8::_xor(unsigned char register_x, unsigned char register_y)
 {
 	registers[register_x] = registers[register_x] ^ registers[register_y];
+
+	gui->update_register(register_x, registers[register_x]);
 }
 
 
@@ -602,6 +629,9 @@ void Chip8::_add_register_register(unsigned char register_x, unsigned char regis
 
 	// Assign the target register
 	registers[register_x] = (unsigned char) (total & 0x00FF);
+
+	gui->update_register(register_x, registers[register_x]);
+	gui->update_register(0x0F, registers[0x0F]);	
 }
 
 
@@ -630,7 +660,10 @@ void Chip8::_subtract_register_register(unsigned char register_x, unsigned char 
 	}
 	difference -= registers[register_y];
 
-	registers[register_x] = (unsigned char) difference;	
+	registers[register_x] = (unsigned char) difference;
+
+	gui->update_register(register_x, registers[register_x]);
+	gui->update_register(0x0F, registers[0x0F]);		
 }
 
 
@@ -660,6 +693,9 @@ void Chip8::_subtract_negative_register_register(unsigned char register_x, unsig
 	difference -= registers[register_x];
 
 	registers[register_x] = (unsigned char) difference;	
+
+	gui->update_register(register_x, registers[register_x]);
+	gui->update_register(0x0F, registers[0x0F]);		
 }
 
 
@@ -687,6 +723,9 @@ void Chip8::_shift_right(unsigned char register_x)
 
 	// Right shift - make sure that the shifted in bit is 0
 	registers[register_x] = (registers[register_x] >> 1) | 0x7F;
+
+	gui->update_register(register_x, registers[register_x]);
+	gui->update_register(0x0F, registers[0x0F]);		
 }
 
 
@@ -713,6 +752,9 @@ void Chip8::_shift_left(unsigned char register_x)
 
 	// Right shift - make sure that the shifted in bit is 0
 	registers[register_x] = (registers[register_x] << 1) | 0xFE;
+
+	gui->update_register(register_x, registers[register_x]);
+	gui->update_register(0x0F, registers[0x0F]);		
 }
 
 
@@ -727,6 +769,8 @@ void Chip8::_shift_left(unsigned char register_x)
 void Chip8::_set_address_register(unsigned short address)
 {
 	address_register = address;
+
+	gui->update_address_register(address_register);
 }
 
 
@@ -744,6 +788,8 @@ void Chip8::_jump_offset(unsigned short address)
 	// NOTE:  What if the program counter exceeds an allowable value?
 
 	program_counter = address + registers[0x00];
+
+	gui->update_program_counter(program_counter);
 }
 
 
@@ -760,6 +806,8 @@ void Chip8::_jump_offset(unsigned short address)
 void Chip8::_random(unsigned char register_x, unsigned char value)
 {
 	registers[register_x] = (rand() % 0x100) & value;
+
+	gui->update_register(register_x, registers[register_x]);
 }
 
 
@@ -797,6 +845,7 @@ void Chip8::_draw(unsigned char register_x, unsigned char register_y, unsigned c
 	}
 
 	gui->refresh_display();
+	gui->update_register(0x0F, registers[0x0F]);		
 }
 
 
@@ -808,6 +857,8 @@ void Chip8::_skip_key_pressed(unsigned char register_x)
 	{
 		program_counter += 2;
 	}
+
+	gui->update_program_counter(program_counter);
 }
 
 
@@ -820,6 +871,8 @@ void Chip8::_skip_key_not_pressed(unsigned char register_x)
 	{
 		program_counter += 2;
 	}
+
+	gui->update_program_counter(program_counter);
 }
 
 
@@ -845,7 +898,8 @@ void Chip8::_get_key(unsigned char register_x)
 		program_counter -= 2;
 	}
 	
-
+	gui->update_program_counter(program_counter);
+	gui->update_register(register_x, registers[register_x]);
 }
 
 
@@ -860,6 +914,8 @@ void Chip8::_get_key(unsigned char register_x)
 void Chip8::_get_delay_timer(unsigned char register_x)
 {
 	registers[register_x] = delay_timer;
+
+	gui->update_register(register_x, registers[register_x]);
 }
 
 
@@ -906,13 +962,17 @@ void Chip8::_set_sound_timer(unsigned char register_x)
 void Chip8::_add_address_register(unsigned char register_x)
 {
 	address_register += registers[register_x];
+
+	gui->update_address_register(address_register);
 }
 
 
 
 void Chip8::_set_address_sprite(unsigned char register_x)
 {
-	address_register = memory->get_sprite_address(registers[register_x]);	
+	address_register = memory->get_sprite_address(registers[register_x]);
+
+	gui->update_address_register(address_register);
 }
 
 
@@ -934,6 +994,8 @@ void Chip8::_store_bcd(unsigned char register_x)
 	memory->dump(address_register, value_100s);
 	memory->dump(address_register, value_10s);
 	memory->dump(address_register, value_1s);
+
+	gui->update_memory();
 }
 
 
@@ -954,6 +1016,9 @@ void Chip8::_dump_register(unsigned char register_x)
 		memory->dump(address_register, registers[reg_num]);
 		address_register++;
 	}
+
+	gui->update_memory();
+	gui->update_address_register(address_register);
 }
 
 
@@ -973,7 +1038,10 @@ void Chip8::_load_register(unsigned char register_x)
 	{
 		registers[reg_num] = memory->fetch(address_register);
 		address_register++;
+
+		gui->update_register(reg_num, registers[reg_num]);
 	}
+	gui->update_address_register(address_register);
 }
 
 void Chip8::_invalid_opcode(unsigned short opcode)

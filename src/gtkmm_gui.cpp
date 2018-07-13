@@ -145,7 +145,7 @@ void GtkmmGui::on_load_rom_activate()
 			// Load the program, reset the computer, and refresh the memory display
 			computer->load(filename.c_str());
 			computer->soft_reset();
-			fill_memory_display();
+			update_memory();
 
 			break;
 		}
@@ -325,6 +325,10 @@ void GtkmmGui::build()
 	screen_area->signal_draw().connect(sigc::mem_fun(*this, &GtkmmGui::draw_screen), false);
 
 	builder->get_widget("memory_display", memory_display);
+	builder->get_widget("stack_display", stack_display);
+
+	memory_display->set_justify(Gtk::JUSTIFY_FILL);
+	stack_display->set_justify(Gtk::JUSTIFY_FILL);
 
 	// Setup the signal handlers for the cycle and run buttons
 	builder->get_widget("step_button", cycle_button);
@@ -336,8 +340,7 @@ void GtkmmGui::build()
 	// References to the various dialog boxes (loading a rom, about, etc.)
 	builder->get_widget("load_rom_dialog", load_rom_dialog);
 
-	fill_memory_display();
-//	draw_screen();
+	update_memory();
 	stale_values.clear();
 
 
@@ -348,12 +351,7 @@ void GtkmmGui::build()
 
 void GtkmmGui::run()
 {
-	// Start the timeout to call the run function
-//	gint run_ref = g_timeout_add(16, _run, this);
-
-//	gtk_main();
 	gtkApp->run(*window);
-
 }
 
 
@@ -410,10 +408,43 @@ void GtkmmGui::update_sound_timer(unsigned short value)
 }
 
 
-void GtkmmGui::fill_memory_display()
+void GtkmmGui::update_memory()
 {
 //	memory_display->set_text(computer->get_memory_string());
 	stale_values[memory_display] = computer->get_memory_string();
+}
+
+
+void GtkmmGui::update_stack(unsigned short* stack, unsigned char num_values, unsigned char stack_size)
+{
+	std::stringstream ss;
+
+	// Create a string for the stack
+	ss.clear();
+	ss.str(std::string());
+
+	// Go through the stack writing the stack position, and address if present
+	for(unsigned char i=0; i < stack_size; i++)
+	{
+		ss << _byte_to_string(i, true) << ":\t";
+
+		// Either fill in an address, if present, or spaces, in order to ensure consistant line width
+		if(i < num_values)
+		{
+			ss << _short_to_string(stack[i], true);
+		}
+		else
+		{
+			ss << "      ";
+		}
+
+		if(i < stack_size-1)
+		{
+			ss << "\n";
+		}
+	}
+
+	stale_values[stack_display] = ss.str();
 }
 
 

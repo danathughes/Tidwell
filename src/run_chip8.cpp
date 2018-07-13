@@ -36,13 +36,13 @@ int main(int argc, char** argv)
 
 	// Build the GUI, and start it up!
 	GtkmmGui* gui = new GtkmmGui(computer, argc, argv);
+	gui->build();
 
 	chip8->add_listener(gui);
 	
 	clock->start();
 //	clock->run();
 
-	gui->build();
 	gui->run();
 
 	delete clock;
