@@ -3,16 +3,16 @@
 
 */
 
-#include "memory.h"
-#include "keyboard.h"
-#include "display.h"
-#include "chip8.h"
+#include "core/memory.h"
+#include "core/keyboard.h"
+#include "core/display.h"
+#include "core/chip8.h"
 
-#include "computer.h"
+#include "core/computer.h"
 
-#include "clock.h"
+#include "core/clock.h"
 
-#include "gtkmm_gui.h"
+#include "view/gtkmm_gui.h"
 
 #include <iostream>
 

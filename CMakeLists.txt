@@ -4,6 +4,10 @@ PROJECT (RunChip8)
 # Minimum version of cmake required
 CMAKE_MINIMUM_REQUIRED (VERSION 2.6)
 
+PROJECT(Chip8)
+
+SET(CMAKE_INCLUDE_CURRENT_DIR ON)
+
 # Detect GTK+ headers / library files
 FIND_PACKAGE (PkgConfig REQUIRED)
 FIND_PACKAGE (Threads REQUIRED)
@@ -31,7 +35,11 @@ SET (Chip8_VERSION_MINOR 0)
 
 # Bring the headers and source files into the project
 INCLUDE_DIRECTORIES (include)
-FILE (GLOB SOURCES "src/*.cpp")
+
+FILE (GLOB SOURCES src/*.cpp src/view/*.cpp src/core/*.cpp)
+
+# View
+
 
 # Add the executable
 ADD_EXECUTABLE (RunChip8 ${SOURCES})
