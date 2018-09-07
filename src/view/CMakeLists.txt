@@ -1,0 +1,1 @@
+ADD_LIBRARY(RunChip8 *.cpp)
