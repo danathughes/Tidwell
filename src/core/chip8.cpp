@@ -149,10 +149,11 @@ void Chip8::cycle()
 	// Pull out all possible variables from the opcode
 	unsigned short address = 	(unsigned short) (opcode & 0x0FFF);			// 12-bit value
 	unsigned char register_x = 	(unsigned char) ((opcode & 0x0F00) >> 8);	// 2nd nybble
-	unsigned char register_y = 	(unsigned char) ((opcode & 0x00F0) >> 4);	// 3rd nyyble
+	unsigned char register_y = 	(unsigned char) ((opcode & 0x00F0) >> 4);	// 3rd nybble
 	unsigned char value =		(unsigned char) (opcode & 0x00FF);			// Last byte used as value
-	unsigned char nybble = 		(unsigned char) (opcode & 0x000F);
 
+	// Method to be called
+	void (Chip8::* operation) (unsigned short, unsigned char, unsigned char, unsigned char) = NULL;
 
 	// Decode the opcode and act accordingly
 	// opcodes are organized roughly by first nybble
@@ -162,82 +163,82 @@ void Chip8::cycle()
 			switch(opcode)
 			{
 				case 0x00E0:
-					_clear_screen();
+					operation = &Chip8::_clear_screen;
 					break;
 				case 0x00EE:
-					_return();
+					operation = &Chip8::_return;
 					break;
 				default:
-					_system_call(address);
+					operation = &Chip8::_system_call;
 					break;
 			}
 			break;
 
 		case 0x1000:
-			_jump(address);
+			operation = &Chip8::_jump;
 			break;
 
 		case 0x2000:
-			_call(address);
+			operation = &Chip8::_call;
 			break;
 
 		case 0x3000:
-			_skip_equal_register_value(register_x, value);
+			operation = &Chip8::_skip_equal_register_value;
 			break;
 
 		case 0x4000:
-			_skip_not_equal_register_value(register_x, value);
+			operation = &Chip8::_skip_not_equal_register_value;
 			break;
 
 		case 0x5000:
-			_skip_equal_register_register(register_x, register_y);
+			operation = &Chip8::_skip_equal_register_register;
 			break;
 
 		case 0x6000:
-			_assign_register_value(register_x, value);
+			operation = &Chip8::_assign_register_value;
 			break;
 
 		case 0x7000:
-			_add_register_value(register_x, value);
+			operation = &Chip8::_add_register_value;
 			break;
 
 		case 0x8000:
 			switch(opcode & 0x000F)
 			{
 				case 0x0000:
-					_assign_register_register(register_x, register_y);
+					operation = &Chip8::_assign_register_register;
 					break;
 
 				case 0x0001:
-					_or(register_x, register_y);
+					operation = &Chip8::_or;
 					break;
 
 				case 0x0002:
-					_and(register_x, register_y);
+					operation = &Chip8::_and;
 					break;
 
 				case 0x0003:
-					_xor(register_x, register_y);
+					operation = &Chip8::_xor;
 					break;
 
 				case 0x0004:
-					_add_register_register(register_x, register_y);
+					operation = &Chip8::_add_register_register;
 					break;
 
 				case 0x0005:
-					_subtract_register_register(register_x, register_y);
+					operation = &Chip8::_subtract_register_register;
 					break;
 
 				case 0x0006:
-					_shift_right(register_x);
+					operation = &Chip8::_shift_right;
 					break;
 
 				case 0x0007:
-					_subtract_negative_register_register(register_x, register_y);
+					operation = &Chip8::_subtract_negative_register_register;
 					break;
 
 				case 0x000E:
-					_shift_left(register_x);
+					operation = &Chip8::_shift_left;
 					break;
 
 				default:
@@ -248,34 +249,34 @@ void Chip8::cycle()
 			break;
 
 		case 0x9000:
-			_skip_not_equal_register_register(register_x, register_y);
+			operation = &Chip8::_skip_not_equal_register_register;
 			break;
 
 		case 0xA000:
-			_set_address_register(address);
+			operation = &Chip8::_set_address_register;
 			break;
 
 		case 0XB000:
-			_jump_offset(address);
+			operation = &Chip8::_jump_offset;
 			break;
 
 		case 0xC000:
-			_random(register_x, value);
+			operation = &Chip8::_random;
 			break;
 
 		case 0xD000:
-			_draw(register_x, register_y, nybble);
+			operation = &Chip8::_draw;
 			break;
 
 		case 0xE000:
 			switch(opcode & 0x00FF)
 			{
 				case 0x009E:
-					_skip_key_pressed(register_x);
+					operation = &Chip8::_skip_key_pressed;
 					break;
 
 				case 0x00A1:
-					_skip_key_not_pressed(register_x);
+					operation = &Chip8::_skip_key_not_pressed;
 					break;
 
 				default:
@@ -289,39 +290,39 @@ void Chip8::cycle()
 			switch(opcode & 0x00FF)
 			{
 				case 0x0007:
-					_get_delay_timer(register_x);
+					operation = &Chip8::_get_delay_timer;
 					break;
 
 				case 0x000A:
-					_get_key(register_x);
+					operation = &Chip8::_get_key;
 					break;
 
 				case 0x0015:
-					_set_delay_timer(register_x);
+					operation = &Chip8::_set_delay_timer;
 					break;
 
 				case 0x0018:
-					_set_sound_timer(register_x);
+					operation = &Chip8::_set_sound_timer;
 					break;
 
 				case 0x001E:
-					_add_address_register(register_x);
+					operation = &Chip8::_add_address_register;
 					break;
 
 				case 0x0029:
-					_set_address_sprite(register_x);
+					operation = &Chip8::_set_address_sprite;
 					break;
 
 				case 0x0033:
-					_store_bcd(register_x);
+					operation = &Chip8::_store_bcd;
 					break;
 
 				case 0x0055:
-					_dump_register(register_x);
+					operation = &Chip8::_dump_register;
 					break;
 
 				case 0x0065:
-					_load_register(register_x);
+					operation = &Chip8::_load_register;
 					break;
 
 				default:
@@ -335,6 +336,12 @@ void Chip8::cycle()
 			break;
 	}
 
+	// Perform the operation
+	if(operation)
+		(this->*operation) (address, register_x, register_y, value);
+	else
+		_invalid_opcode(opcode);
+
 }
 
 
@@ -347,7 +354,7 @@ void Chip8::cycle()
 *
 * Clear the display, set all bytes in the display memory to 0x00
 *********************/
-void Chip8::_clear_screen()
+void Chip8::_clear_screen(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	display->clear();
 }
@@ -359,7 +366,7 @@ void Chip8::_clear_screen()
 * Set the program counter to the address on the top of the stack, then
 * subtract 1 from the stack pointer.
 *********************/
-void Chip8::_return()
+void Chip8::_return(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	// Is there somthing on the stack to pop?
 	if(stack_pointer == 0)
@@ -387,7 +394,7 @@ void Chip8::_return()
 * Parameters
 *   unsigned short address - address of the routine
 *********************/
-void Chip8::_system_call(unsigned short address)
+void Chip8::_system_call(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	// NOTE:  This instruction is ignored.
 }
@@ -401,7 +408,7 @@ void Chip8::_system_call(unsigned short address)
 * Parameters
 *   unsigned short address - address to jump to
 *********************/
-void Chip8::_jump(unsigned short address)
+void Chip8::_jump(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	program_counter = address;
 
@@ -418,7 +425,7 @@ void Chip8::_jump(unsigned short address)
 * Parameters
 *   unsigned short address - address of the subroutine to call
 *********************/
-void Chip8::_call(unsigned short address)
+void Chip8::_call(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	// Is the stack full?
 	if(stack_pointer == CALL_STACK_SIZE)
@@ -449,7 +456,7 @@ void Chip8::_call(unsigned short address)
 *   unsigned char register_x - which register to compare to
 *   unsigned char value - the value to compre to
 *********************/
-void Chip8::_skip_equal_register_value(unsigned char register_x, unsigned char value)
+void Chip8::_skip_equal_register_value(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	if(registers[register_x] == value)
 	{
@@ -470,7 +477,7 @@ void Chip8::_skip_equal_register_value(unsigned char register_x, unsigned char v
 *   unsigned char register_x - which register to compare to
 *   unsigned char value - the value to compre to
 *********************/
-void Chip8::_skip_not_equal_register_value(unsigned char register_x, unsigned char value)
+void Chip8::_skip_not_equal_register_value(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	if(registers[register_x] != value)
 	{
@@ -490,7 +497,7 @@ void Chip8::_skip_not_equal_register_value(unsigned char register_x, unsigned ch
 *   unsigned char register_x - the first register to compare
 *   unsigned char register_y - the second register to compare
 *********************/
-void Chip8::_skip_equal_register_register(unsigned char register_x, unsigned char register_y)
+void Chip8::_skip_equal_register_register(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	if(registers[register_x] == registers[register_y])
 	{
@@ -510,7 +517,7 @@ void Chip8::_skip_equal_register_register(unsigned char register_x, unsigned cha
 *   unsigned char register_x - the first register to compare
 *   unsigned char register_y - the second register to compare
 *********************/
-void Chip8::_skip_not_equal_register_register(unsigned char register_x, unsigned char register_y)
+void Chip8::_skip_not_equal_register_register(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	if(registers[register_x] != registers[register_y])
 	{
@@ -531,7 +538,7 @@ void Chip8::_skip_not_equal_register_register(unsigned char register_x, unsigned
 *   unsigned char register_x - the register to assign to
 *   unsigned char value - the value to store in the register
 *********************/
-void Chip8::_assign_register_value(unsigned char register_x, unsigned char value)
+void Chip8::_assign_register_value(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	registers[register_x] = value;
 
@@ -548,7 +555,7 @@ void Chip8::_assign_register_value(unsigned char register_x, unsigned char value
 *   unsigned char register_x - the register to add to
 *   unsigned char value - the value to add to the register
 *********************/
-void Chip8::_add_register_value(unsigned char register_x, unsigned char value)
+void Chip8::_add_register_value(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	registers[register_x] += value;
 
@@ -565,7 +572,7 @@ void Chip8::_add_register_value(unsigned char register_x, unsigned char value)
 *   unsigned char register_x - the register to assign to
 *   unsigned char register_y - the register to assign from
 *********************/
-void Chip8::_assign_register_register(unsigned char register_x, unsigned char register_y)
+void Chip8::_assign_register_register(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	registers[register_x] = registers[register_y];
 
@@ -582,7 +589,7 @@ void Chip8::_assign_register_register(unsigned char register_x, unsigned char re
 *   unsigned char register_x - the register to assign to
 *   unsigned char register_y - the other register
 *********************/
-void Chip8::_or(unsigned char register_x, unsigned char register_y)
+void Chip8::_or(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	registers[register_x] = registers[register_x] | registers[register_y];
 
@@ -599,7 +606,7 @@ void Chip8::_or(unsigned char register_x, unsigned char register_y)
 *   unsigned char register_x - the register to assign to
 *   unsigned char register_y - the other register
 *********************/
-void Chip8::_and(unsigned char register_x, unsigned char register_y)
+void Chip8::_and(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	registers[register_x] = registers[register_x] & registers[register_y];
 
@@ -616,7 +623,7 @@ void Chip8::_and(unsigned char register_x, unsigned char register_y)
 *   unsigned char register_x - the register to assign to
 *   unsigned char register_y - the other register
 *********************/
-void Chip8::_xor(unsigned char register_x, unsigned char register_y)
+void Chip8::_xor(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	registers[register_x] = registers[register_x] ^ registers[register_y];
 
@@ -633,7 +640,7 @@ void Chip8::_xor(unsigned char register_x, unsigned char register_y)
 *   unsigned char register_x - the register to assign to
 *   unsigned char register_y - the other register
 *********************/
-void Chip8::_add_register_register(unsigned char register_x, unsigned char register_y)
+void Chip8::_add_register_register(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	unsigned short total = (unsigned short) registers[register_x] + (unsigned short) registers[register_y];
 
@@ -664,7 +671,7 @@ void Chip8::_add_register_register(unsigned char register_x, unsigned char regis
 *   unsigned char register_x - the register to assign to
 *   unsigned char register_y - the other register
 *********************/
-void Chip8::_subtract_register_register(unsigned char register_x, unsigned char register_y)
+void Chip8::_subtract_register_register(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	unsigned short difference = (unsigned short) registers[register_x];
 
@@ -696,7 +703,7 @@ void Chip8::_subtract_register_register(unsigned char register_x, unsigned char 
 *   unsigned char register_x - the register to assign to
 *   unsigned char register_y - the other register
 *********************/
-void Chip8::_subtract_negative_register_register(unsigned char register_x, unsigned char register_y)
+void Chip8::_subtract_negative_register_register(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	unsigned short difference = (unsigned short) registers[register_y];
 
@@ -729,7 +736,7 @@ void Chip8::_subtract_negative_register_register(unsigned char register_x, unsig
 * Parameters
 *   unsigned char register_x - the register to shift
 *********************/
-void Chip8::_shift_right(unsigned char register_x)
+void Chip8::_shift_right(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	// Assign the LSB to register F
 	if((registers[register_x] & 0x01) != 0x00)
@@ -758,7 +765,7 @@ void Chip8::_shift_right(unsigned char register_x)
 * Parameters
 *   unsigned char register_x - the register to shift
 *********************/
-void Chip8::_shift_left(unsigned char register_x)
+void Chip8::_shift_left(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	// Assign the MSB to register F
 	if((registers[register_x] & 0x80) != 0x00)
@@ -786,7 +793,7 @@ void Chip8::_shift_left(unsigned char register_x)
 * Parameters
 *   unsigned short address - address to set the register to
 *********************/
-void Chip8::_set_address_register(unsigned short address)
+void Chip8::_set_address_register(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	address_register = address;
 
@@ -803,7 +810,7 @@ void Chip8::_set_address_register(unsigned short address)
 * Parameters
 *   unsigned short address - address to jump to
 *********************/
-void Chip8::_jump_offset(unsigned short address)
+void Chip8::_jump_offset(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	// NOTE:  What if the program counter exceeds an allowable value?
 
@@ -823,7 +830,7 @@ void Chip8::_jump_offset(unsigned short address)
 *   unsigned char register_x - the register to assign the value to
 *	unsigned char value - the provided byte value
 *********************/
-void Chip8::_random(unsigned char register_x, unsigned char value)
+void Chip8::_random(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	registers[register_x] = (rand() % 0x100) & value;
 
@@ -843,15 +850,18 @@ void Chip8::_random(unsigned char register_x, unsigned char value)
 *   unsigned char reigster_y - the register containing the y coordinate of the sprite
 *	unsigned char value - the number of pixels in height of the sprite.
 *********************/
-void Chip8::_draw(unsigned char register_x, unsigned char register_y, unsigned char value)
+void Chip8::_draw(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	bool collision = false;
 
 	unsigned char x = registers[register_x];
 	unsigned char y = registers[register_y];
 
+	// Only use the last 4 bits of the value as the number of lines to draw
+	unsigned char n_lines = value & 0x0F;
+
 	// Read in N bytes, starting at the current address register
-	for(int i=0; i<value; i++)
+	for(int i=0; i<n_lines; i++)
 	{
 		unsigned char line = memory->fetch(address_register + i);
 
@@ -869,7 +879,7 @@ void Chip8::_draw(unsigned char register_x, unsigned char register_y, unsigned c
 }
 
 
-void Chip8::_skip_key_pressed(unsigned char register_x)
+void Chip8::_skip_key_pressed(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	unsigned char key = registers[register_x];
 
@@ -883,7 +893,7 @@ void Chip8::_skip_key_pressed(unsigned char register_x)
 
 
 
-void Chip8::_skip_key_not_pressed(unsigned char register_x)
+void Chip8::_skip_key_not_pressed(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	unsigned char key = registers[register_x];
 
@@ -896,7 +906,7 @@ void Chip8::_skip_key_not_pressed(unsigned char register_x)
 
 
 
-void Chip8::_get_key(unsigned char register_x)
+void Chip8::_get_key(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	bool got_key_press = false;
 
@@ -930,7 +940,7 @@ void Chip8::_get_key(unsigned char register_x)
 * Parameters
 *   unsigned char register_x - the register to assign the timer to
 *********************/
-void Chip8::_get_delay_timer(unsigned char register_x)
+void Chip8::_get_delay_timer(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	registers[register_x] = delay_timer;
 
@@ -946,7 +956,7 @@ void Chip8::_get_delay_timer(unsigned char register_x)
 * Parameters
 *   unsigned char register_x - the register containing the delay timer value
 *********************/
-void Chip8::_set_delay_timer(unsigned char register_x)
+void Chip8::_set_delay_timer(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	delay_timer = registers[register_x];
 
@@ -962,7 +972,7 @@ void Chip8::_set_delay_timer(unsigned char register_x)
 * Parameters
 *   unsigned char register_x - the register containing the sound timer value
 *********************/
-void Chip8::_set_sound_timer(unsigned char register_x)
+void Chip8::_set_sound_timer(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	sound_timer = registers[register_x];
 
@@ -978,7 +988,7 @@ void Chip8::_set_sound_timer(unsigned char register_x)
 * Parameters
 *   unsigned char register_x - the register to add to the address register
 *********************/
-void Chip8::_add_address_register(unsigned char register_x)
+void Chip8::_add_address_register(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	address_register += registers[register_x];
 
@@ -987,7 +997,7 @@ void Chip8::_add_address_register(unsigned char register_x)
 
 
 
-void Chip8::_set_address_sprite(unsigned char register_x)
+void Chip8::_set_address_sprite(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	address_register = memory->get_sprite_address(registers[register_x]);
 
@@ -996,18 +1006,18 @@ void Chip8::_set_address_sprite(unsigned char register_x)
 
 
 
-void Chip8::_store_bcd(unsigned char register_x)
+void Chip8::_store_bcd(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
-	unsigned char value = registers[register_x];
+	unsigned char bcd_value = registers[register_x];
 
 	// What is the 100's, 10's and 1's?
-	unsigned char value_100s = value / 100;
-	value -= 100*(value_100s);
+	unsigned char value_100s = bcd_value / 100;
+	bcd_value -= 100*(value_100s);
 
-	unsigned char value_10s = value / 10;
-	value -= 10*(value_10s);
+	unsigned char value_10s = bcd_value / 10;
+	bcd_value -= 10*(value_10s);
 
-	unsigned char value_1s = value;
+	unsigned char value_1s = bcd_value;
 
 	// Store the three bytes
 	memory->dump(address_register, value_100s);
@@ -1027,7 +1037,7 @@ void Chip8::_store_bcd(unsigned char register_x)
 * Parameters
 *   unsigned char register_x - the upper register value to write to memory
 *********************/
-void Chip8::_dump_register(unsigned char register_x)
+void Chip8::_dump_register(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	// Loop through the registers and write to memory
 	for(int reg_num=0; reg_num <= register_x; reg_num++)
@@ -1050,7 +1060,7 @@ void Chip8::_dump_register(unsigned char register_x)
 * Parameters
 *   unsigned char register_x - the upper register to load
 *********************/
-void Chip8::_load_register(unsigned char register_x)
+void Chip8::_load_register(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	// Loop through the registers and write to memory
 	for(int reg_num=0; reg_num <= register_x; reg_num++)

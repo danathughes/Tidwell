@@ -41,57 +41,57 @@ class Chip8
 
 
 		// Execution of opcodes -- each opcode takes a short (the actual opcode) as an argument
-		void _clear_screen();
+		void _clear_screen(unsigned short, unsigned char, unsigned char, unsigned char);
 
-		void _return();
-		void _system_call(unsigned short);
-		void _jump(unsigned short);
-		void _jump_offset(unsigned short);
-		void _call(unsigned short);
+		void _return(unsigned short, unsigned char, unsigned char, unsigned char);
+		void _system_call(unsigned short, unsigned char, unsigned char, unsigned char);
+		void _jump(unsigned short, unsigned char, unsigned char, unsigned char);
+		void _jump_offset(unsigned short, unsigned char, unsigned char, unsigned char);
+		void _call(unsigned short, unsigned char, unsigned char, unsigned char);
 
-		void _skip_equal_register_value(unsigned char, unsigned char);
-		void _skip_not_equal_register_value(unsigned char, unsigned char);
-		void _skip_equal_register_register(unsigned char, unsigned char);
-		void _skip_not_equal_register_register(unsigned char, unsigned char);
+		void _skip_equal_register_value(unsigned short, unsigned char, unsigned char, unsigned char);
+		void _skip_not_equal_register_value(unsigned short, unsigned char, unsigned char, unsigned char);
+		void _skip_equal_register_register(unsigned short, unsigned char, unsigned char, unsigned char);
+		void _skip_not_equal_register_register(unsigned short, unsigned char, unsigned char, unsigned char);
 
-		void _assign_register_value(unsigned char, unsigned char);
-		void _add_register_value(unsigned char, unsigned char);
-		void _assign_register_register(unsigned char, unsigned char);
+		void _assign_register_value(unsigned short, unsigned char, unsigned char, unsigned char);
+		void _add_register_value(unsigned short, unsigned char, unsigned char, unsigned char);
+		void _assign_register_register(unsigned short, unsigned char, unsigned char, unsigned char);
 
-		void _or(unsigned char, unsigned char);
-		void _and(unsigned char, unsigned char);
-		void _xor(unsigned char, unsigned char);
+		void _or(unsigned short, unsigned char, unsigned char, unsigned char);
+		void _and(unsigned short, unsigned char, unsigned char, unsigned char);
+		void _xor(unsigned short, unsigned char, unsigned char, unsigned char);
 
-		void _shift_right(unsigned char);
-		void _shift_left(unsigned char);
+		void _shift_right(unsigned short, unsigned char, unsigned char, unsigned char);
+		void _shift_left(unsigned short, unsigned char, unsigned char, unsigned char);
 
-		void _add_register_register(unsigned char, unsigned char);
-		void _subtract_register_register(unsigned char, unsigned char);
-		void _subtract_negative_register_register(unsigned char, unsigned char);
+		void _add_register_register(unsigned short, unsigned char, unsigned char, unsigned char);
+		void _subtract_register_register(unsigned short, unsigned char, unsigned char, unsigned char);
+		void _subtract_negative_register_register(unsigned short, unsigned char, unsigned char, unsigned char);
 
-		void _set_address_register(unsigned short);
+		void _set_address_register(unsigned short, unsigned char, unsigned char, unsigned char);
 
-		void _random(unsigned char, unsigned char);
+		void _random(unsigned short, unsigned char, unsigned char, unsigned char);
 
-		void _draw(unsigned char, unsigned char, unsigned char);
+		void _draw(unsigned short, unsigned char, unsigned char, unsigned char);
 
-		void _get_delay_timer(unsigned char);
-		void _set_delay_timer(unsigned char);
-		void _set_sound_timer(unsigned char);
-
-
-		void _skip_key_pressed(unsigned char);
-		void _skip_key_not_pressed(unsigned char);
-		void _get_key(unsigned char);
+		void _get_delay_timer(unsigned short, unsigned char, unsigned char, unsigned char);
+		void _set_delay_timer(unsigned short, unsigned char, unsigned char, unsigned char);
+		void _set_sound_timer(unsigned short, unsigned char, unsigned char, unsigned char);
 
 
-		void _add_address_register(unsigned char);
+		void _skip_key_pressed(unsigned short, unsigned char, unsigned char, unsigned char);
+		void _skip_key_not_pressed(unsigned short, unsigned char, unsigned char, unsigned char);
+		void _get_key(unsigned short, unsigned char, unsigned char, unsigned char);
 
-		void _set_address_sprite(unsigned char);
-		void _store_bcd(unsigned char);
 
-		void _dump_register(unsigned char);
-		void _load_register(unsigned char);
+		void _add_address_register(unsigned short, unsigned char, unsigned char, unsigned char);
+
+		void _set_address_sprite(unsigned short, unsigned char, unsigned char, unsigned char);
+		void _store_bcd(unsigned short, unsigned char, unsigned char, unsigned char);
+
+		void _dump_register(unsigned short, unsigned char, unsigned char, unsigned char);
+		void _load_register(unsigned short, unsigned char, unsigned char, unsigned char);
 
 
 		void _invalid_opcode(unsigned short);
