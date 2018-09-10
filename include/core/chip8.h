@@ -9,6 +9,8 @@ class GladeGui;
 #include "core/display.h"
 #include "core/keyboard.h"
 
+#include <map>
+
 class Chip8
 {
 	private:
@@ -21,6 +23,9 @@ class Chip8
 		Display* display;
 
 		ChipListener* gui;
+
+		// A map used to convert operation codes to methods
+		std::map <unsigned short, void (Chip8::* ) (unsigned short, unsigned char, unsigned char, unsigned char)> operation_map;
 
 		// Registers -- V0 - VF
 		unsigned char registers[16];
@@ -48,54 +53,39 @@ class Chip8
 		void _jump(unsigned short, unsigned char, unsigned char, unsigned char);
 		void _jump_offset(unsigned short, unsigned char, unsigned char, unsigned char);
 		void _call(unsigned short, unsigned char, unsigned char, unsigned char);
-
 		void _skip_equal_register_value(unsigned short, unsigned char, unsigned char, unsigned char);
 		void _skip_not_equal_register_value(unsigned short, unsigned char, unsigned char, unsigned char);
 		void _skip_equal_register_register(unsigned short, unsigned char, unsigned char, unsigned char);
 		void _skip_not_equal_register_register(unsigned short, unsigned char, unsigned char, unsigned char);
-
 		void _assign_register_value(unsigned short, unsigned char, unsigned char, unsigned char);
 		void _add_register_value(unsigned short, unsigned char, unsigned char, unsigned char);
 		void _assign_register_register(unsigned short, unsigned char, unsigned char, unsigned char);
-
 		void _or(unsigned short, unsigned char, unsigned char, unsigned char);
 		void _and(unsigned short, unsigned char, unsigned char, unsigned char);
 		void _xor(unsigned short, unsigned char, unsigned char, unsigned char);
-
 		void _shift_right(unsigned short, unsigned char, unsigned char, unsigned char);
 		void _shift_left(unsigned short, unsigned char, unsigned char, unsigned char);
-
 		void _add_register_register(unsigned short, unsigned char, unsigned char, unsigned char);
 		void _subtract_register_register(unsigned short, unsigned char, unsigned char, unsigned char);
 		void _subtract_negative_register_register(unsigned short, unsigned char, unsigned char, unsigned char);
-
 		void _set_address_register(unsigned short, unsigned char, unsigned char, unsigned char);
-
 		void _random(unsigned short, unsigned char, unsigned char, unsigned char);
-
 		void _draw(unsigned short, unsigned char, unsigned char, unsigned char);
-
 		void _get_delay_timer(unsigned short, unsigned char, unsigned char, unsigned char);
 		void _set_delay_timer(unsigned short, unsigned char, unsigned char, unsigned char);
 		void _set_sound_timer(unsigned short, unsigned char, unsigned char, unsigned char);
-
-
 		void _skip_key_pressed(unsigned short, unsigned char, unsigned char, unsigned char);
 		void _skip_key_not_pressed(unsigned short, unsigned char, unsigned char, unsigned char);
 		void _get_key(unsigned short, unsigned char, unsigned char, unsigned char);
-
-
 		void _add_address_register(unsigned short, unsigned char, unsigned char, unsigned char);
-
 		void _set_address_sprite(unsigned short, unsigned char, unsigned char, unsigned char);
 		void _store_bcd(unsigned short, unsigned char, unsigned char, unsigned char);
-
 		void _dump_register(unsigned short, unsigned char, unsigned char, unsigned char);
 		void _load_register(unsigned short, unsigned char, unsigned char, unsigned char);
 
-
 		void _invalid_opcode(unsigned short);
 
+		void create_operation_map();
 
 	public:
 		// Constructors and destructors
@@ -105,7 +95,6 @@ class Chip8
 		// High-level instructions to reset the chip, load a program,
 		// and perform a clock cycle
 		void reset();
-//		void load(const char*);
 		void cycle();
 		void cycle_delay();
 		void cycle_sound();

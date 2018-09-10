@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define CALL_STACK_SIZE		64
+#define CALL_STACK_SIZE		16
 
 /************
 *
@@ -31,6 +31,9 @@ Chip8::Chip8()
 
 	// Seed a random number generator
 	srand(time(NULL));
+
+	// Populate the opcode-to-operation map
+	create_operation_map();
 }
 
 
@@ -50,6 +53,60 @@ Chip8::Chip8(Memory* _memory, Display* _display, Keyboard* _keyboard)
 
 	// Seed a random number generator
 	srand(time(NULL));
+
+	// Populate the opcode-to-operation map
+	create_operation_map();
+}
+
+
+void Chip8::create_operation_map()
+{
+	// On the off chance the map is full, clear it out
+	operation_map.clear();
+
+	// Now map all the opcodes to the corresponding functions
+	operation_map.insert(std::make_pair(0x00E0, &Chip8::_clear_screen));
+	operation_map.insert(std::make_pair(0x00EE, &Chip8::_return));
+	operation_map.insert(std::make_pair(0x0000, &Chip8::_system_call));
+
+	operation_map.insert(std::make_pair(0x1000, &Chip8::_jump));
+	operation_map.insert(std::make_pair(0x2000, &Chip8::_call));
+	operation_map.insert(std::make_pair(0x3000, &Chip8::_skip_equal_register_value));
+	operation_map.insert(std::make_pair(0x4000, &Chip8::_skip_not_equal_register_value));
+	operation_map.insert(std::make_pair(0x5000, &Chip8::_skip_equal_register_register));
+	operation_map.insert(std::make_pair(0x6000, &Chip8::_assign_register_value));
+	operation_map.insert(std::make_pair(0x7000, &Chip8::_add_register_value));
+
+	operation_map.insert(std::make_pair(0x8000, &Chip8::_assign_register_register));
+	operation_map.insert(std::make_pair(0x8001, &Chip8::_or));
+	operation_map.insert(std::make_pair(0x8002, &Chip8::_and));
+	operation_map.insert(std::make_pair(0x8003, &Chip8::_xor));
+	operation_map.insert(std::make_pair(0x8004, &Chip8::_add_register_register));
+	operation_map.insert(std::make_pair(0x8005, &Chip8::_subtract_register_register));
+	operation_map.insert(std::make_pair(0x8006, &Chip8::_shift_right));
+	operation_map.insert(std::make_pair(0x8007, &Chip8::_subtract_negative_register_register));
+	operation_map.insert(std::make_pair(0x800E, &Chip8::_shift_left));
+
+	operation_map.insert(std::make_pair(0x9000, &Chip8::_skip_not_equal_register_register));
+	operation_map.insert(std::make_pair(0xA000, &Chip8::_set_address_register));
+	operation_map.insert(std::make_pair(0xB000, &Chip8::_jump_offset));
+	operation_map.insert(std::make_pair(0xC000, &Chip8::_random));
+	operation_map.insert(std::make_pair(0xD000, &Chip8::_draw));
+
+	operation_map.insert(std::make_pair(0xE09E, &Chip8::_skip_key_pressed));
+	operation_map.insert(std::make_pair(0xE0A1, &Chip8::_skip_key_not_pressed));
+
+	operation_map.insert(std::make_pair(0xF007, &Chip8::_get_delay_timer));
+	operation_map.insert(std::make_pair(0xF00A, &Chip8::_get_key));
+	operation_map.insert(std::make_pair(0xF015, &Chip8::_set_delay_timer));
+	operation_map.insert(std::make_pair(0xF018, &Chip8::_set_sound_timer));
+	operation_map.insert(std::make_pair(0xF01E, &Chip8::_add_address_register));
+	operation_map.insert(std::make_pair(0xF029, &Chip8::_set_address_sprite));
+	operation_map.insert(std::make_pair(0xF033, &Chip8::_store_bcd));
+	operation_map.insert(std::make_pair(0xF055, &Chip8::_dump_register));
+	operation_map.insert(std::make_pair(0xF065, &Chip8::_load_register));
+
+	// TODO:  If this is a SuperChip-8, add operations here...
 }
 
 
@@ -157,190 +214,43 @@ void Chip8::cycle()
 
 	// Decode the opcode and act accordingly
 	// opcodes are organized roughly by first nybble
-	switch(opcode & 0xF000)
+	unsigned short opnum = opcode & 0xF000;
+
+	// Opcode prefix 0x0000 may also refer to 0x00E0 or 0x00EE, check if this
+	// is the case
+	if(opnum == 0x0000)
 	{
-		case 0x0000:
-			switch(opcode)
-			{
-				case 0x00E0:
-					operation = &Chip8::_clear_screen;
-					break;
-				case 0x00EE:
-					operation = &Chip8::_return;
-					break;
-				default:
-					operation = &Chip8::_system_call;
-					break;
-			}
-			break;
-
-		case 0x1000:
-			operation = &Chip8::_jump;
-			break;
-
-		case 0x2000:
-			operation = &Chip8::_call;
-			break;
-
-		case 0x3000:
-			operation = &Chip8::_skip_equal_register_value;
-			break;
-
-		case 0x4000:
-			operation = &Chip8::_skip_not_equal_register_value;
-			break;
-
-		case 0x5000:
-			operation = &Chip8::_skip_equal_register_register;
-			break;
-
-		case 0x6000:
-			operation = &Chip8::_assign_register_value;
-			break;
-
-		case 0x7000:
-			operation = &Chip8::_add_register_value;
-			break;
-
-		case 0x8000:
-			switch(opcode & 0x000F)
-			{
-				case 0x0000:
-					operation = &Chip8::_assign_register_register;
-					break;
-
-				case 0x0001:
-					operation = &Chip8::_or;
-					break;
-
-				case 0x0002:
-					operation = &Chip8::_and;
-					break;
-
-				case 0x0003:
-					operation = &Chip8::_xor;
-					break;
-
-				case 0x0004:
-					operation = &Chip8::_add_register_register;
-					break;
-
-				case 0x0005:
-					operation = &Chip8::_subtract_register_register;
-					break;
-
-				case 0x0006:
-					operation = &Chip8::_shift_right;
-					break;
-
-				case 0x0007:
-					operation = &Chip8::_subtract_negative_register_register;
-					break;
-
-				case 0x000E:
-					operation = &Chip8::_shift_left;
-					break;
-
-				default:
-					// Not a valid opcode
-					_invalid_opcode(opcode);
-					break;
-			}
-			break;
-
-		case 0x9000:
-			operation = &Chip8::_skip_not_equal_register_register;
-			break;
-
-		case 0xA000:
-			operation = &Chip8::_set_address_register;
-			break;
-
-		case 0XB000:
-			operation = &Chip8::_jump_offset;
-			break;
-
-		case 0xC000:
-			operation = &Chip8::_random;
-			break;
-
-		case 0xD000:
-			operation = &Chip8::_draw;
-			break;
-
-		case 0xE000:
-			switch(opcode & 0x00FF)
-			{
-				case 0x009E:
-					operation = &Chip8::_skip_key_pressed;
-					break;
-
-				case 0x00A1:
-					operation = &Chip8::_skip_key_not_pressed;
-					break;
-
-				default:
-					// Not a valid opcode
-					_invalid_opcode(opcode);
-					break;
-			}
-			break;
-
-		case 0xF000:
-			switch(opcode & 0x00FF)
-			{
-				case 0x0007:
-					operation = &Chip8::_get_delay_timer;
-					break;
-
-				case 0x000A:
-					operation = &Chip8::_get_key;
-					break;
-
-				case 0x0015:
-					operation = &Chip8::_set_delay_timer;
-					break;
-
-				case 0x0018:
-					operation = &Chip8::_set_sound_timer;
-					break;
-
-				case 0x001E:
-					operation = &Chip8::_add_address_register;
-					break;
-
-				case 0x0029:
-					operation = &Chip8::_set_address_sprite;
-					break;
-
-				case 0x0033:
-					operation = &Chip8::_store_bcd;
-					break;
-
-				case 0x0055:
-					operation = &Chip8::_dump_register;
-					break;
-
-				case 0x0065:
-					operation = &Chip8::_load_register;
-					break;
-
-				default:
-					_invalid_opcode(opcode);
-					break;
-			}
-			break;
-
-		default:
-			_invalid_opcode(opcode);
-			break;
+		if((opcode & 0x00FF) == 0x00E0 || (opcode & 0x00FF) == 0x00EE)
+		{
+			opnum = opcode & 0xF0FF;
+		}
 	}
 
-	// Perform the operation
-	if(operation)
+	// Opcode prefix 0x8000 also relies on the last nybble
+	// NOTE:  Check if this is critical for 0x5000 and 0x9000 as well.
+	//        Do these operations necessarily need to end in 0?
+	if((opnum == 0x5000) || (opnum == 0x8000) || (opnum==0x9000))
+	{
+		opnum = opcode & 0xF00F;
+	}
+
+	// Opcode prefix 0xE000 and 0xF000 rely on the last byte as well
+	if((opnum == 0xE000) || (opnum == 0xF000))
+	{
+		opnum = opcode & 0xF0FF;
+	}
+
+	// Get the operation from the operation map, and execute
+	// If the operation isn't in the map, inform that this is an invalid opcode
+	if(operation_map.find(opnum) != operation_map.end())
+	{
+		operation = operation_map[opnum];
 		(this->*operation) (address, register_x, register_y, value);
-	else
+	}
+	else		// Operation wasn't found, need to throw invalid opcode
+	{
 		_invalid_opcode(opcode);
+	}
 
 }
 
