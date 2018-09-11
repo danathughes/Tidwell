@@ -3,6 +3,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/RunChip8.dir/src/view/gtk_gui.cpp.o"
   "CMakeFiles/RunChip8.dir/src/view/gtkmm_gui.cpp.o"
   "CMakeFiles/RunChip8.dir/src/view/glade_gui.cpp.o"
+  "CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o"
   "CMakeFiles/RunChip8.dir/src/core/clock.cpp.o"
   "CMakeFiles/RunChip8.dir/src/core/memory.cpp.o"
   "CMakeFiles/RunChip8.dir/src/core/chip8.cpp.o"

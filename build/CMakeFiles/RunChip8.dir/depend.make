@@ -42,6 +42,7 @@ CMakeFiles/RunChip8.dir/src/run_chip8.cpp.o: ../include/core/display.h
 CMakeFiles/RunChip8.dir/src/run_chip8.cpp.o: ../include/core/keyboard.h
 CMakeFiles/RunChip8.dir/src/run_chip8.cpp.o: ../include/core/memory.h
 CMakeFiles/RunChip8.dir/src/run_chip8.cpp.o: ../include/view/gtkmm_gui.h
+CMakeFiles/RunChip8.dir/src/run_chip8.cpp.o: ../include/view/simple_sdl_gui.h
 CMakeFiles/RunChip8.dir/src/run_chip8.cpp.o: ../src/run_chip8.cpp
 CMakeFiles/RunChip8.dir/src/run_chip8.cpp.o: /usr/include/atk-1.0/atk/atk-enum-types.h
 CMakeFiles/RunChip8.dir/src/run_chip8.cpp.o: /usr/include/atk-1.0/atk/atk.h
@@ -3551,4 +3552,14 @@ CMakeFiles/RunChip8.dir/src/view/gtkmm_gui.cpp.o: /usr/lib/x86_64-linux-gnu/glib
 CMakeFiles/RunChip8.dir/src/view/gtkmm_gui.cpp.o: /usr/lib/x86_64-linux-gnu/gtkmm-3.0/include/gtkmmconfig.h
 CMakeFiles/RunChip8.dir/src/view/gtkmm_gui.cpp.o: /usr/lib/x86_64-linux-gnu/pangomm-1.4/include/pangommconfig.h
 CMakeFiles/RunChip8.dir/src/view/gtkmm_gui.cpp.o: /usr/lib/x86_64-linux-gnu/sigc++-2.0/include/sigc++config.h
+
+CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o: ../include/core/chip8.h
+CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o: ../include/core/chip_listener.h
+CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o: ../include/core/clock.h
+CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o: ../include/core/computer.h
+CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o: ../include/core/display.h
+CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o: ../include/core/keyboard.h
+CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o: ../include/core/memory.h
+CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o: ../include/view/simple_sdl_gui.h
+CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o: ../src/view/simple_sdl_gui.cpp
 

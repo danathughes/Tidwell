@@ -1,8 +1,6 @@
 #ifndef __CHIP8_H__
 #define __CHIP8_H__
 
-class GladeGui;
-
 #include "core/chip_listener.h"
 
 #include "core/memory.h"
@@ -91,6 +89,7 @@ class Chip8
 		// Constructors and destructors
 		Chip8();
 		Chip8(Memory*, Display*, Keyboard*);
+		Chip8(Memory*, Display*, Keyboard*, unsigned char);
 
 		// High-level instructions to reset the chip, load a program,
 		// and perform a clock cycle

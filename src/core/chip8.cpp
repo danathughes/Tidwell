@@ -1,6 +1,5 @@
 
 #include "core/chip8.h"
-//#include "glade_gui.h"
 #include "core/chip_listener.h"
 
 #include "core/memory.h"
@@ -48,6 +47,28 @@ Chip8::Chip8(Memory* _memory, Display* _display, Keyboard* _keyboard)
 	display = _display;
 
 	call_stack = new unsigned short[CALL_STACK_SIZE];
+
+	refresh=false;
+
+	// Seed a random number generator
+	srand(time(NULL));
+
+	// Populate the opcode-to-operation map
+	create_operation_map();
+}
+
+
+/************
+*
+* Create a Chip-8 with provided components, allowing user to override default call stack size
+************/
+Chip8::Chip8(Memory* _memory, Display* _display, Keyboard* _keyboard, unsigned char call_stack_size)
+{
+	memory = _memory;
+	keyboard = _keyboard;
+	display = _display;
+
+	call_stack = new unsigned short[call_stack_size];
 
 	refresh=false;
 

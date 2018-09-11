@@ -13,6 +13,7 @@
 #include "core/clock.h"
 
 #include "view/gtkmm_gui.h"
+#include "view/simple_sdl_gui.h"
 
 #include <iostream>
 
@@ -35,15 +36,18 @@ int main(int argc, char** argv)
 	computer->soft_reset();
 
 	// Build the GUI, and start it up!
-	GtkmmGui* gui = new GtkmmGui(computer, argc, argv);
+//	GtkmmGui* gui = new GtkmmGui(computer, argc, argv);
+	SimpleSDLGui* gui = new SimpleSDLGui(computer, argc, argv);
 	gui->build();
 
 	chip8->add_listener(gui);
 	
 	clock->start();
-//	clock->run();
+
+	computer->load("minimal.ch8");
 
 	gui->run();
+
 
 	delete clock;
 

@@ -14,6 +14,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/dana/Projects/chip-8/src/view/glade_gui.cpp" "/home/dana/Projects/chip-8/build/CMakeFiles/RunChip8.dir/src/view/glade_gui.cpp.o"
   "/home/dana/Projects/chip-8/src/view/gtk_gui.cpp" "/home/dana/Projects/chip-8/build/CMakeFiles/RunChip8.dir/src/view/gtk_gui.cpp.o"
   "/home/dana/Projects/chip-8/src/view/gtkmm_gui.cpp" "/home/dana/Projects/chip-8/build/CMakeFiles/RunChip8.dir/src/view/gtkmm_gui.cpp.o"
+  "/home/dana/Projects/chip-8/src/view/simple_sdl_gui.cpp" "/home/dana/Projects/chip-8/build/CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

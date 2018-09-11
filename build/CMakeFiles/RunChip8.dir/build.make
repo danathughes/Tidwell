@@ -153,9 +153,33 @@ CMakeFiles/RunChip8.dir/src/view/glade_gui.cpp.o.provides: CMakeFiles/RunChip8.d
 CMakeFiles/RunChip8.dir/src/view/glade_gui.cpp.o.provides.build: CMakeFiles/RunChip8.dir/src/view/glade_gui.cpp.o
 
 
+CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o: CMakeFiles/RunChip8.dir/flags.make
+CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o: ../src/view/simple_sdl_gui.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dana/Projects/chip-8/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o -c /home/dana/Projects/chip-8/src/view/simple_sdl_gui.cpp
+
+CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dana/Projects/chip-8/src/view/simple_sdl_gui.cpp > CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.i
+
+CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dana/Projects/chip-8/src/view/simple_sdl_gui.cpp -o CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.s
+
+CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o.requires:
+
+.PHONY : CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o.requires
+
+CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o.provides: CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o.requires
+	$(MAKE) -f CMakeFiles/RunChip8.dir/build.make CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o.provides.build
+.PHONY : CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o.provides
+
+CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o.provides.build: CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o
+
+
 CMakeFiles/RunChip8.dir/src/core/clock.cpp.o: CMakeFiles/RunChip8.dir/flags.make
 CMakeFiles/RunChip8.dir/src/core/clock.cpp.o: ../src/core/clock.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dana/Projects/chip-8/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/RunChip8.dir/src/core/clock.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dana/Projects/chip-8/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/RunChip8.dir/src/core/clock.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RunChip8.dir/src/core/clock.cpp.o -c /home/dana/Projects/chip-8/src/core/clock.cpp
 
 CMakeFiles/RunChip8.dir/src/core/clock.cpp.i: cmake_force
@@ -179,7 +203,7 @@ CMakeFiles/RunChip8.dir/src/core/clock.cpp.o.provides.build: CMakeFiles/RunChip8
 
 CMakeFiles/RunChip8.dir/src/core/memory.cpp.o: CMakeFiles/RunChip8.dir/flags.make
 CMakeFiles/RunChip8.dir/src/core/memory.cpp.o: ../src/core/memory.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dana/Projects/chip-8/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/RunChip8.dir/src/core/memory.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dana/Projects/chip-8/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/RunChip8.dir/src/core/memory.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RunChip8.dir/src/core/memory.cpp.o -c /home/dana/Projects/chip-8/src/core/memory.cpp
 
 CMakeFiles/RunChip8.dir/src/core/memory.cpp.i: cmake_force
@@ -203,7 +227,7 @@ CMakeFiles/RunChip8.dir/src/core/memory.cpp.o.provides.build: CMakeFiles/RunChip
 
 CMakeFiles/RunChip8.dir/src/core/chip8.cpp.o: CMakeFiles/RunChip8.dir/flags.make
 CMakeFiles/RunChip8.dir/src/core/chip8.cpp.o: ../src/core/chip8.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dana/Projects/chip-8/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/RunChip8.dir/src/core/chip8.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dana/Projects/chip-8/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/RunChip8.dir/src/core/chip8.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RunChip8.dir/src/core/chip8.cpp.o -c /home/dana/Projects/chip-8/src/core/chip8.cpp
 
 CMakeFiles/RunChip8.dir/src/core/chip8.cpp.i: cmake_force
@@ -227,7 +251,7 @@ CMakeFiles/RunChip8.dir/src/core/chip8.cpp.o.provides.build: CMakeFiles/RunChip8
 
 CMakeFiles/RunChip8.dir/src/core/computer.cpp.o: CMakeFiles/RunChip8.dir/flags.make
 CMakeFiles/RunChip8.dir/src/core/computer.cpp.o: ../src/core/computer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dana/Projects/chip-8/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/RunChip8.dir/src/core/computer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dana/Projects/chip-8/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/RunChip8.dir/src/core/computer.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RunChip8.dir/src/core/computer.cpp.o -c /home/dana/Projects/chip-8/src/core/computer.cpp
 
 CMakeFiles/RunChip8.dir/src/core/computer.cpp.i: cmake_force
@@ -251,7 +275,7 @@ CMakeFiles/RunChip8.dir/src/core/computer.cpp.o.provides.build: CMakeFiles/RunCh
 
 CMakeFiles/RunChip8.dir/src/core/display.cpp.o: CMakeFiles/RunChip8.dir/flags.make
 CMakeFiles/RunChip8.dir/src/core/display.cpp.o: ../src/core/display.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dana/Projects/chip-8/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/RunChip8.dir/src/core/display.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dana/Projects/chip-8/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/RunChip8.dir/src/core/display.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RunChip8.dir/src/core/display.cpp.o -c /home/dana/Projects/chip-8/src/core/display.cpp
 
 CMakeFiles/RunChip8.dir/src/core/display.cpp.i: cmake_force
@@ -275,7 +299,7 @@ CMakeFiles/RunChip8.dir/src/core/display.cpp.o.provides.build: CMakeFiles/RunChi
 
 CMakeFiles/RunChip8.dir/src/core/keyboard.cpp.o: CMakeFiles/RunChip8.dir/flags.make
 CMakeFiles/RunChip8.dir/src/core/keyboard.cpp.o: ../src/core/keyboard.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dana/Projects/chip-8/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/RunChip8.dir/src/core/keyboard.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dana/Projects/chip-8/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/RunChip8.dir/src/core/keyboard.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RunChip8.dir/src/core/keyboard.cpp.o -c /home/dana/Projects/chip-8/src/core/keyboard.cpp
 
 CMakeFiles/RunChip8.dir/src/core/keyboard.cpp.i: cmake_force
@@ -303,6 +327,7 @@ RunChip8_OBJECTS = \
 "CMakeFiles/RunChip8.dir/src/view/gtk_gui.cpp.o" \
 "CMakeFiles/RunChip8.dir/src/view/gtkmm_gui.cpp.o" \
 "CMakeFiles/RunChip8.dir/src/view/glade_gui.cpp.o" \
+"CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o" \
 "CMakeFiles/RunChip8.dir/src/core/clock.cpp.o" \
 "CMakeFiles/RunChip8.dir/src/core/memory.cpp.o" \
 "CMakeFiles/RunChip8.dir/src/core/chip8.cpp.o" \
@@ -317,6 +342,7 @@ RunChip8: CMakeFiles/RunChip8.dir/src/run_chip8.cpp.o
 RunChip8: CMakeFiles/RunChip8.dir/src/view/gtk_gui.cpp.o
 RunChip8: CMakeFiles/RunChip8.dir/src/view/gtkmm_gui.cpp.o
 RunChip8: CMakeFiles/RunChip8.dir/src/view/glade_gui.cpp.o
+RunChip8: CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o
 RunChip8: CMakeFiles/RunChip8.dir/src/core/clock.cpp.o
 RunChip8: CMakeFiles/RunChip8.dir/src/core/memory.cpp.o
 RunChip8: CMakeFiles/RunChip8.dir/src/core/chip8.cpp.o
@@ -325,7 +351,7 @@ RunChip8: CMakeFiles/RunChip8.dir/src/core/display.cpp.o
 RunChip8: CMakeFiles/RunChip8.dir/src/core/keyboard.cpp.o
 RunChip8: CMakeFiles/RunChip8.dir/build.make
 RunChip8: CMakeFiles/RunChip8.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/dana/Projects/chip-8/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable RunChip8"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/dana/Projects/chip-8/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable RunChip8"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/RunChip8.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -337,6 +363,7 @@ CMakeFiles/RunChip8.dir/requires: CMakeFiles/RunChip8.dir/src/run_chip8.cpp.o.re
 CMakeFiles/RunChip8.dir/requires: CMakeFiles/RunChip8.dir/src/view/gtk_gui.cpp.o.requires
 CMakeFiles/RunChip8.dir/requires: CMakeFiles/RunChip8.dir/src/view/gtkmm_gui.cpp.o.requires
 CMakeFiles/RunChip8.dir/requires: CMakeFiles/RunChip8.dir/src/view/glade_gui.cpp.o.requires
+CMakeFiles/RunChip8.dir/requires: CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o.requires
 CMakeFiles/RunChip8.dir/requires: CMakeFiles/RunChip8.dir/src/core/clock.cpp.o.requires
 CMakeFiles/RunChip8.dir/requires: CMakeFiles/RunChip8.dir/src/core/memory.cpp.o.requires
 CMakeFiles/RunChip8.dir/requires: CMakeFiles/RunChip8.dir/src/core/chip8.cpp.o.requires

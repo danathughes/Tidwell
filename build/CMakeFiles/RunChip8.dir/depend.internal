@@ -43,6 +43,7 @@ CMakeFiles/RunChip8.dir/src/run_chip8.cpp.o
  ../include/core/keyboard.h
  ../include/core/memory.h
  ../include/view/gtkmm_gui.h
+ ../include/view/simple_sdl_gui.h
  /home/dana/Projects/chip-8/src/run_chip8.cpp
  /usr/include/atk-1.0/atk/atk-enum-types.h
  /usr/include/atk-1.0/atk/atk.h
@@ -3552,3 +3553,13 @@ CMakeFiles/RunChip8.dir/src/view/gtkmm_gui.cpp.o
  /usr/lib/x86_64-linux-gnu/gtkmm-3.0/include/gtkmmconfig.h
  /usr/lib/x86_64-linux-gnu/pangomm-1.4/include/pangommconfig.h
  /usr/lib/x86_64-linux-gnu/sigc++-2.0/include/sigc++config.h
+CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o
+ ../include/core/chip8.h
+ ../include/core/chip_listener.h
+ ../include/core/clock.h
+ ../include/core/computer.h
+ ../include/core/display.h
+ ../include/core/keyboard.h
+ ../include/core/memory.h
+ ../include/view/simple_sdl_gui.h
+ /home/dana/Projects/chip-8/src/view/simple_sdl_gui.cpp

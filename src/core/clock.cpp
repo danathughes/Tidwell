@@ -6,7 +6,7 @@
 
 Clock::Clock(Chip8* _chip)
 {
-	clock_period = 10000;
+	clock_period = 2000;
 	delay_period = 16667;
 	sound_period = 16667;
 

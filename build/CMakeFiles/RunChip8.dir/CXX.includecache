@@ -74,6 +74,14 @@ gtkmm.h
 map
 -
 
+../include/view/simple_sdl_gui.h
+core/computer.h
+../include/view/core/computer.h
+core/chip_listener.h
+../include/view/core/chip_listener.h
+SDL2/SDL.h
+-
+
 /home/dana/Projects/chip-8/src/core/chip8.cpp
 core/chip8.h
 /home/dana/Projects/chip-8/src/core/core/chip8.h
@@ -151,6 +159,8 @@ core/clock.h
 /home/dana/Projects/chip-8/src/core/clock.h
 view/gtkmm_gui.h
 /home/dana/Projects/chip-8/src/view/gtkmm_gui.h
+view/simple_sdl_gui.h
+/home/dana/Projects/chip-8/src/view/simple_sdl_gui.h
 iostream
 -
 
@@ -182,6 +192,22 @@ view/gtkmm_gui.h
 gtkmm.h
 -
 gtk/gtk.h
+-
+iostream
+-
+sstream
+-
+string
+-
+iterator
+-
+map
+-
+
+/home/dana/Projects/chip-8/src/view/simple_sdl_gui.cpp
+view/simple_sdl_gui.h
+/home/dana/Projects/chip-8/src/view/view/simple_sdl_gui.h
+SDL2/SDL.h
 -
 iostream
 -

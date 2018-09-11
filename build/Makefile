@@ -437,6 +437,33 @@ src/view/gtkmm_gui.cpp.s:
 	$(MAKE) -f CMakeFiles/RunChip8.dir/build.make CMakeFiles/RunChip8.dir/src/view/gtkmm_gui.cpp.s
 .PHONY : src/view/gtkmm_gui.cpp.s
 
+src/view/simple_sdl_gui.o: src/view/simple_sdl_gui.cpp.o
+
+.PHONY : src/view/simple_sdl_gui.o
+
+# target to build an object file
+src/view/simple_sdl_gui.cpp.o:
+	$(MAKE) -f CMakeFiles/RunChip8.dir/build.make CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.o
+.PHONY : src/view/simple_sdl_gui.cpp.o
+
+src/view/simple_sdl_gui.i: src/view/simple_sdl_gui.cpp.i
+
+.PHONY : src/view/simple_sdl_gui.i
+
+# target to preprocess a source file
+src/view/simple_sdl_gui.cpp.i:
+	$(MAKE) -f CMakeFiles/RunChip8.dir/build.make CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.i
+.PHONY : src/view/simple_sdl_gui.cpp.i
+
+src/view/simple_sdl_gui.s: src/view/simple_sdl_gui.cpp.s
+
+.PHONY : src/view/simple_sdl_gui.s
+
+# target to generate assembly for a file
+src/view/simple_sdl_gui.cpp.s:
+	$(MAKE) -f CMakeFiles/RunChip8.dir/build.make CMakeFiles/RunChip8.dir/src/view/simple_sdl_gui.cpp.s
+.PHONY : src/view/simple_sdl_gui.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -480,6 +507,9 @@ help:
 	@echo "... src/view/gtkmm_gui.o"
 	@echo "... src/view/gtkmm_gui.i"
 	@echo "... src/view/gtkmm_gui.s"
+	@echo "... src/view/simple_sdl_gui.o"
+	@echo "... src/view/simple_sdl_gui.i"
+	@echo "... src/view/simple_sdl_gui.s"
 .PHONY : help
 
 
