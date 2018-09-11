@@ -24,6 +24,13 @@
 *****/
 int main(int argc, char** argv)
 {
+	// Did the user provide a file to run?
+	if(argc < 2)
+	{
+		std::cout << "Program file not provided!  USAGE:  RunChip8 <program.ch8>" << std::endl;
+		return 0;
+	}
+
 	// Create a keyboard, memory and display
 	Keyboard* keyboard = new Keyboard();
 	Display* display = new Display();
@@ -44,7 +51,7 @@ int main(int argc, char** argv)
 	
 	clock->start();
 
-	computer->load("minimal.ch8");
+	computer->load(argv[1]);
 
 	gui->run();
 

@@ -4,10 +4,13 @@
 class Display
 {
 	private:
-		bool display[64][32];
+		bool** display;
+
+		unsigned int width, height;
 
 	public:
 		Display();
+		Display(unsigned int, unsigned int);
 
 		bool set_pixel(unsigned char, unsigned char);
 		bool flip_pixel(unsigned char, unsigned char);
@@ -17,6 +20,8 @@ class Display
 		void show();
 		void clear();
 	
+		unsigned int get_width();
+		unsigned int get_height();
 };
 
 #endif

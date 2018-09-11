@@ -39,6 +39,7 @@ class SimpleSDLGui : public ChipListener
 		SDL_Keycode KeyF = SDLK_v;
 
 		void draw();
+		void draw_screen(int, int, int, int);
 
 	public:
 		SimpleSDLGui(Computer*, int, char**);

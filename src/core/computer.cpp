@@ -47,6 +47,16 @@ bool Computer::get_pixel(unsigned char x, unsigned char y)
 	return display->get_pixel(x, y);
 }
 
+unsigned int Computer::get_display_width()
+{
+	return display->get_width();
+}
+
+unsigned int Computer::get_display_height()
+{
+	return display->get_height();
+}
+
 void Computer::run()
 {
 	clock->run();

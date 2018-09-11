@@ -25,6 +25,8 @@ class Computer
 		void release_key(unsigned char);
 
 		bool get_pixel(unsigned char, unsigned char);
+		unsigned int get_display_width();
+		unsigned int get_display_height();
 
 		void cycle();
 		void run();

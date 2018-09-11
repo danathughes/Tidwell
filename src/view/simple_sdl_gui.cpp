@@ -71,41 +71,41 @@ void SimpleSDLGui::build()
 	SDL_RenderClear(renderer);
 
 	SDL_RenderPresent(renderer);
-/*
-	screenSurface = SDL_GetWindowSurface(window);
-
-	// 1.  Clear out the screen (white background)
-	SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF));
-
-	// 4.  Update the window
-	SDL_UpdateWindowSurface(window);
-*/
 }
+
 
 void SimpleSDLGui::draw()
 {
-	// 1.  Clear out the screen (white background)
+	draw_screen(10, 10, 320, 160);
+}
+
+
+void SimpleSDLGui::draw_screen(int _x, int _y, int screen_width, int screen_height)
+{
+	// Clear out the screen (white background)
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(renderer);
 
-	// 2.  Set the Render color to black
+	// How big to make each pixel?
+	int pixel_width = (screen_width - _x) / computer->get_display_width();
+	int pixel_height = (screen_height - _y) / computer->get_display_height();
 
-	// 3.  Loop through the display and draw rectangles where the bits are set
-	for(unsigned x=0; x<64; x++)
+	// Loop through the display and draw rectangles where the bits are set
+	for(int x=0; x < computer->get_display_width(); x++)
 	{
-		for(unsigned char y=0; y<32; y++)
+		for(int y=0; y < computer->get_display_height(); y++)
 		{
 			if(computer->get_pixel(x,y))
 			{
 				// Draw this pixel
-				SDL_Rect pixel = {((int) x)*10, ((int) y)*10, 10, 10};
+				SDL_Rect pixel = {x*pixel_width + _x, y*pixel_height + _y, pixel_width, pixel_height};
 				SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 				SDL_RenderFillRect(renderer, &pixel);
 			}
 		}
 	}
 
-	// 4.  Update the window
+	// Update the window
 	SDL_RenderPresent(renderer);
 }
 
