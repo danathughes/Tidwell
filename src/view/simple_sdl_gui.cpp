@@ -159,6 +159,10 @@ void SimpleSDLGui::run()
 				if(event.key.keysym.sym == KeyD)	computer->press_key(0x0D);
 				if(event.key.keysym.sym == KeyE)	computer->press_key(0x0E);
 				if(event.key.keysym.sym == KeyF)	computer->press_key(0x0F);
+
+				// Resize the display?
+				if(event.key.keysym.sym == SDLK_UP)		computer->resize_display(128,64);
+				if(event.key.keysym.sym == SDLK_DOWN)	computer->resize_display(64,32);
 			}
 
 			// Handle key releases

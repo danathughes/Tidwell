@@ -154,3 +154,44 @@ unsigned int Display::get_height()
 {
 	return height;
 }
+
+void Display::resize(unsigned int _width, unsigned int _height)
+{
+	// Hang on to the old display
+	bool** old_display = display;
+
+	// Create a new display, set all values to 0
+	display = new bool*[_width];
+
+	for(int i=0; i<_width; i++)
+	{
+		display[i] = new bool[_height];
+		for(int j=0; j<_height; j++)
+		{
+			display[i][j] = false;
+		}
+	}
+
+	// Copy over whatever is in the current display, cropping if necessary
+	for(int i=0; i<std::min(_width, width); i++)
+	{
+		for(int j=0; j<std::min(_height, height); j++)
+		{
+			display[i][j] = old_display[i][j];
+		}
+	}
+
+	// Destroy the old display
+	for(int i=0; i<width; i++)
+	{
+		delete old_display[i];
+	}
+	delete old_display;
+
+	old_display = NULL;
+
+	// Finally, set the new width and height
+	width = _width;
+	height = _height;
+}
+

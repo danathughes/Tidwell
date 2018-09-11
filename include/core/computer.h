@@ -28,6 +28,8 @@ class Computer
 		unsigned int get_display_width();
 		unsigned int get_display_height();
 
+		void resize_display(unsigned int, unsigned int);
+
 		void cycle();
 		void run();
 		void pause();

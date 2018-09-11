@@ -57,6 +57,11 @@ unsigned int Computer::get_display_height()
 	return display->get_height();
 }
 
+void Computer::resize_display(unsigned int width, unsigned int height)
+{
+	display->resize(width, height);
+}
+
 void Computer::run()
 {
 	clock->run();

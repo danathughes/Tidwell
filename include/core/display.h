@@ -22,6 +22,8 @@ class Display
 	
 		unsigned int get_width();
 		unsigned int get_height();
+
+		void resize(unsigned int, unsigned int);
 };
 
 #endif
