@@ -329,6 +329,33 @@ src/core/memory.cpp.s:
 	$(MAKE) -f CMakeFiles/RunChip8.dir/build.make CMakeFiles/RunChip8.dir/src/core/memory.cpp.s
 .PHONY : src/core/memory.cpp.s
 
+src/core/schip8.o: src/core/schip8.cpp.o
+
+.PHONY : src/core/schip8.o
+
+# target to build an object file
+src/core/schip8.cpp.o:
+	$(MAKE) -f CMakeFiles/RunChip8.dir/build.make CMakeFiles/RunChip8.dir/src/core/schip8.cpp.o
+.PHONY : src/core/schip8.cpp.o
+
+src/core/schip8.i: src/core/schip8.cpp.i
+
+.PHONY : src/core/schip8.i
+
+# target to preprocess a source file
+src/core/schip8.cpp.i:
+	$(MAKE) -f CMakeFiles/RunChip8.dir/build.make CMakeFiles/RunChip8.dir/src/core/schip8.cpp.i
+.PHONY : src/core/schip8.cpp.i
+
+src/core/schip8.s: src/core/schip8.cpp.s
+
+.PHONY : src/core/schip8.s
+
+# target to generate assembly for a file
+src/core/schip8.cpp.s:
+	$(MAKE) -f CMakeFiles/RunChip8.dir/build.make CMakeFiles/RunChip8.dir/src/core/schip8.cpp.s
+.PHONY : src/core/schip8.cpp.s
+
 src/run_chip8.o: src/run_chip8.cpp.o
 
 .PHONY : src/run_chip8.o
@@ -495,6 +522,9 @@ help:
 	@echo "... src/core/memory.o"
 	@echo "... src/core/memory.i"
 	@echo "... src/core/memory.s"
+	@echo "... src/core/schip8.o"
+	@echo "... src/core/schip8.i"
+	@echo "... src/core/schip8.s"
 	@echo "... src/run_chip8.o"
 	@echo "... src/run_chip8.i"
 	@echo "... src/run_chip8.s"

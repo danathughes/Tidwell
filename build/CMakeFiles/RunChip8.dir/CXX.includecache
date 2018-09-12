@@ -48,6 +48,10 @@ core/clock.h
 string
 -
 
+../include/core/schip8.h
+core/chip8.h
+../include/core/core/chip8.h
+
 ../include/view/glade_gui.h
 core/computer.h
 ../include/view/core/computer.h
@@ -143,6 +147,10 @@ string
 -
 sstream
 -
+
+/home/dana/Projects/chip-8/src/core/schip8.cpp
+core/schip8.h
+/home/dana/Projects/chip-8/src/core/core/schip8.h
 
 /home/dana/Projects/chip-8/src/run_chip8.cpp
 core/memory.h

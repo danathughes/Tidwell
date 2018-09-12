@@ -6,14 +6,38 @@
 
 #include <SDL2/SDL.h>
 
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 320;
 const int SCREEN_FPS = 100;
 const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 
 class SimpleSDLGui : public ChipListener
 {
 	private:
+		// Overall screen size
+		unsigned int window_width = 340;
+		unsigned int window_height = 230;
+
+		// Screen location
+		unsigned int screen_x = 10;
+		unsigned int screen_y = 10;
+		unsigned int screen_width = 320;
+		unsigned int screen_height = 160;
+
+		// Run and step buttons
+		unsigned int run_button_x = 10;
+		unsigned int run_button_y = 180;
+		unsigned int run_button_width = 40;
+		unsigned int run_button_height = 40;
+
+		unsigned int step_button_x = 60;
+		unsigned int step_button_y = 180;
+		unsigned int step_button_width = 40;
+		unsigned int step_button_height = 40;
+
+		// Game Title widget
+		unsigned int game_title_x = 110;
+		unsigned int game_title_y = 180;
+		unsigned int game_title_width = 220;
+		unsigned int game_title_height = 20;
 
 		// SDL Screen
 		SDL_Window*  window;

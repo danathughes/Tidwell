@@ -51,7 +51,7 @@ void SimpleSDLGui::build()
 	screenSurface = NULL;
 
 	// Create the main window and a renderer
-	window = SDL_CreateWindow("Chip-8", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("Chip-8", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, window_width, window_height, SDL_WINDOW_SHOWN);
 
 	if(window == NULL)
 	{
@@ -76,32 +76,55 @@ void SimpleSDLGui::build()
 
 void SimpleSDLGui::draw()
 {
-	draw_screen(10, 10, 320, 160);
-}
-
-
-void SimpleSDLGui::draw_screen(int _x, int _y, int screen_width, int screen_height)
-{
-	// Clear out the screen (white background)
+	// Clear the window
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(renderer);
 
+	// Draw the play and step buttons
+	SDL_Rect run_button_border = {run_button_x, run_button_y, run_button_width, run_button_height};
+	SDL_Rect step_button_border = {step_button_x, step_button_y, step_button_width, step_button_height};
+	SDL_Rect game_title_border = {game_title_x, game_title_y, game_title_width, game_title_height};
+	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
+	SDL_RenderDrawRect(renderer, &run_button_border);
+	SDL_RenderDrawRect(renderer, &step_button_border);
+	SDL_RenderDrawRect(renderer, &game_title_border);
+
+	// Draw the rectangle around the display screen
+	SDL_Rect screen_border = {screen_x - 1, screen_y - 1, screen_width + 2, screen_height + 2};
+	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
+	SDL_RenderDrawRect(renderer, &screen_border);
+
+	// Draw the display
+	draw_screen(screen_x, screen_y, screen_width, screen_height);
+}
+
+
+void SimpleSDLGui::draw_screen(int _x, int _y, int display_width, int display_height)
+{
 	// How big to make each pixel?
-	int pixel_width = (screen_width - _x) / computer->get_display_width();
-	int pixel_height = (screen_height - _y) / computer->get_display_height();
+	int pixel_width = display_width / computer->get_display_width();
+	int pixel_height = display_height / computer->get_display_height();
 
 	// Loop through the display and draw rectangles where the bits are set
 	for(int x=0; x < computer->get_display_width(); x++)
 	{
 		for(int y=0; y < computer->get_display_height(); y++)
 		{
-			if(computer->get_pixel(x,y))
+			// Rectangle for the pixel
+			SDL_Rect pixel = {x*pixel_width + _x, y*pixel_height + _y, pixel_width, pixel_height};
+
+			// Pick the color as background or foreground
+			if(computer->get_pixel(x,y))		// Foreground color
 			{
-				// Draw this pixel
-				SDL_Rect pixel = {x*pixel_width + _x, y*pixel_height + _y, pixel_width, pixel_height};
-				SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
-				SDL_RenderFillRect(renderer, &pixel);
+				SDL_SetRenderDrawColor(renderer, 0x40, 0x40, 0x40, 0xFF);
 			}
+			else								// Background color
+			{
+				SDL_SetRenderDrawColor(renderer, 0xD0, 0xD0, 0xD0, 0xFF);
+			}
+			
+			// Draw the pixel
+			SDL_RenderFillRect(renderer, &pixel);
 		}
 	}
 

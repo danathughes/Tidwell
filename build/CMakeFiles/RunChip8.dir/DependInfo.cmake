@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/dana/Projects/chip-8/src/core/display.cpp" "/home/dana/Projects/chip-8/build/CMakeFiles/RunChip8.dir/src/core/display.cpp.o"
   "/home/dana/Projects/chip-8/src/core/keyboard.cpp" "/home/dana/Projects/chip-8/build/CMakeFiles/RunChip8.dir/src/core/keyboard.cpp.o"
   "/home/dana/Projects/chip-8/src/core/memory.cpp" "/home/dana/Projects/chip-8/build/CMakeFiles/RunChip8.dir/src/core/memory.cpp.o"
+  "/home/dana/Projects/chip-8/src/core/schip8.cpp" "/home/dana/Projects/chip-8/build/CMakeFiles/RunChip8.dir/src/core/schip8.cpp.o"
   "/home/dana/Projects/chip-8/src/run_chip8.cpp" "/home/dana/Projects/chip-8/build/CMakeFiles/RunChip8.dir/src/run_chip8.cpp.o"
   "/home/dana/Projects/chip-8/src/view/glade_gui.cpp" "/home/dana/Projects/chip-8/build/CMakeFiles/RunChip8.dir/src/view/glade_gui.cpp.o"
   "/home/dana/Projects/chip-8/src/view/gtk_gui.cpp" "/home/dana/Projects/chip-8/build/CMakeFiles/RunChip8.dir/src/view/gtk_gui.cpp.o"

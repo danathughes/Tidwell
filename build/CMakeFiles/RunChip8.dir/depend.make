@@ -34,6 +34,14 @@ CMakeFiles/RunChip8.dir/src/core/keyboard.cpp.o: ../src/core/keyboard.cpp
 CMakeFiles/RunChip8.dir/src/core/memory.cpp.o: ../include/core/memory.h
 CMakeFiles/RunChip8.dir/src/core/memory.cpp.o: ../src/core/memory.cpp
 
+CMakeFiles/RunChip8.dir/src/core/schip8.cpp.o: ../include/core/chip8.h
+CMakeFiles/RunChip8.dir/src/core/schip8.cpp.o: ../include/core/chip_listener.h
+CMakeFiles/RunChip8.dir/src/core/schip8.cpp.o: ../include/core/display.h
+CMakeFiles/RunChip8.dir/src/core/schip8.cpp.o: ../include/core/keyboard.h
+CMakeFiles/RunChip8.dir/src/core/schip8.cpp.o: ../include/core/memory.h
+CMakeFiles/RunChip8.dir/src/core/schip8.cpp.o: ../include/core/schip8.h
+CMakeFiles/RunChip8.dir/src/core/schip8.cpp.o: ../src/core/schip8.cpp
+
 CMakeFiles/RunChip8.dir/src/run_chip8.cpp.o: ../include/core/chip8.h
 CMakeFiles/RunChip8.dir/src/run_chip8.cpp.o: ../include/core/chip_listener.h
 CMakeFiles/RunChip8.dir/src/run_chip8.cpp.o: ../include/core/clock.h
