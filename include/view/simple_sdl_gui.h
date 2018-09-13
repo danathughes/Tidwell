@@ -13,31 +13,31 @@ class SimpleSDLGui : public ChipListener
 {
 	private:
 		// Overall screen size
-		unsigned int window_width = 340;
-		unsigned int window_height = 230;
+		unsigned int window_width = 532;
+		unsigned int window_height = 346;
 
 		// Screen location
 		unsigned int screen_x = 10;
 		unsigned int screen_y = 10;
-		unsigned int screen_width = 320;
-		unsigned int screen_height = 160;
+		unsigned int screen_width = 512;
+		unsigned int screen_height = 256;
 
 		// Run and step buttons
 		unsigned int run_button_x = 10;
-		unsigned int run_button_y = 180;
-		unsigned int run_button_width = 40;
-		unsigned int run_button_height = 40;
+		unsigned int run_button_y = 276;
+		unsigned int run_button_width = 60;
+		unsigned int run_button_height = 60;
 
-		unsigned int step_button_x = 60;
-		unsigned int step_button_y = 180;
-		unsigned int step_button_width = 40;
-		unsigned int step_button_height = 40;
+		unsigned int step_button_x = 80;
+		unsigned int step_button_y = 276;
+		unsigned int step_button_width = 60;
+		unsigned int step_button_height = 60;
 
 		// Game Title widget
-		unsigned int game_title_x = 110;
-		unsigned int game_title_y = 180;
-		unsigned int game_title_width = 220;
-		unsigned int game_title_height = 20;
+		unsigned int game_title_x = 150;
+		unsigned int game_title_y = 276;
+		unsigned int game_title_width = 366;
+		unsigned int game_title_height = 30;
 
 		// SDL Screen
 		SDL_Window*  window;

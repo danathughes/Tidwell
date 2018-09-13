@@ -59,6 +59,8 @@ void SChip8::create_operation_map()
 ************/
 void SChip8::cycle()
 {
+//	std::cout << "PC: " << program_counter << std::endl;
+
 	// Get the opcode from memory, and increment the program counter
 	// The opcode takes two bytes in memory, stored big-endian
 	unsigned short opcode = (memory->fetch(program_counter) << 8) | (memory->fetch(program_counter + 1));
@@ -196,7 +198,9 @@ void SChip8::_draw(unsigned short address, unsigned char register_x, unsigned ch
 
 void SChip8::_set_address_big_sprite(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
+	address_register = memory->get_big_sprite_address(registers[register_x]);
 
+	gui->update_address_register(address_register);
 }
 
 void SChip8::_dump_register_rpl(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)

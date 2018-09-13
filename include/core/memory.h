@@ -23,7 +23,9 @@ class Memory
 
 		// Start location of sprites
 		unsigned short _sprite_memory_start;
+		unsigned short _big_sprite_memory_start;
 		void load_sprites();
+		void load_big_sprites();
 
 	public:
 		Memory();
@@ -37,6 +39,7 @@ class Memory
 		unsigned short get_display_size();
 
 		unsigned short get_sprite_address(unsigned char);
+		unsigned short get_big_sprite_address(unsigned char);
 
 		std::string to_string(unsigned int);
 

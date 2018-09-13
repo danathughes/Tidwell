@@ -6,7 +6,7 @@
 #include "core/memory.h"
 #include "core/keyboard.h"
 #include "core/display.h"
-//#include "core/chip8.h"
+#include "core/chip8.h"
 #include "core/schip8.h"
 
 #include "core/computer.h"
@@ -36,7 +36,7 @@ int main(int argc, char** argv)
 	Keyboard* keyboard = new Keyboard();
 	Display* display = new Display();
 	Memory* memory = new Memory();
-	SChip8* chip8 = new SChip8(memory, display, keyboard);
+	Chip8* chip8 = new SChip8(memory, display, keyboard);
 	Clock* clock = new Clock(chip8);
 
 	Computer* computer = new Computer((Chip8*)chip8, clock, memory, display, keyboard);

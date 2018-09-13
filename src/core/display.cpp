@@ -193,6 +193,9 @@ void Display::resize(unsigned int _width, unsigned int _height)
 	// Finally, set the new width and height
 	width = _width;
 	height = _height;
+
+	// Clear the screen.  NOTE:  Is this what to do?
+	clear();
 }
 
 
