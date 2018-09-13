@@ -781,7 +781,6 @@ void Chip8::_random(unsigned short address, unsigned char register_x, unsigned c
 *********************/
 void Chip8::_draw(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
-	std::cout << "Chip-8 Draw" << std::endl;
 
 	bool collision = false;
 

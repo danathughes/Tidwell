@@ -195,3 +195,61 @@ void Display::resize(unsigned int _width, unsigned int _height)
 	height = _height;
 }
 
+
+void Display::scroll_down(unsigned char num_rows)
+{
+	for(int j=height-num_rows-1; j>=0; j--)
+	{
+		for(int i=0; i<width; i++)
+		{
+			display[i][j+num_rows] = display[i][j];
+		}
+	}
+
+	for(int i=0; i<width; i++)
+	{
+		for(int j=0; j<num_rows; j++)
+		{
+			display[i][j] = false;
+		}
+	}
+}
+
+
+void Display::scroll_left(unsigned char num_cols)
+{
+	for(int i=num_cols; i<width; i++)
+	{
+		for(int j=0; j<height; j++)
+		{
+			display[i-num_cols][j] = display[i][j];
+		}
+	}
+
+	for(int i=width-num_cols; i<width; i++)
+	{
+		for(int j=0; j<height; j++)
+		{
+			display[i][j] = false;
+		}
+	}
+}
+
+void Display::scroll_right(unsigned char num_cols)
+{
+	for(int i=width-num_cols-1; i>=0; i--)
+	{
+		for(int j=0; j<height; j++)
+		{
+			display[i+num_cols][j] = display[i][j];
+		}
+	}
+
+	for(int i=0; i<num_cols; i++)
+	{
+		for(int j=0; j<height; j++)
+		{
+			display[i][j] = false;
+		}
+	}
+}

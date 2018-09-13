@@ -24,6 +24,10 @@ class Display
 		unsigned int get_height();
 
 		void resize(unsigned int, unsigned int);
+
+		void scroll_down(unsigned char);
+		void scroll_left(unsigned char);
+		void scroll_right(unsigned char);
 };
 
 #endif

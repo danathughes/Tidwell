@@ -161,8 +161,6 @@ core/keyboard.h
 /home/dana/Projects/chip-8/src/core/keyboard.h
 core/display.h
 /home/dana/Projects/chip-8/src/core/display.h
-core/chip8.h
-/home/dana/Projects/chip-8/src/core/chip8.h
 core/schip8.h
 /home/dana/Projects/chip-8/src/core/schip8.h
 core/computer.h

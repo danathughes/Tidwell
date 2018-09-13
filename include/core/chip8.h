@@ -93,10 +93,10 @@ class Chip8
 
 		// High-level instructions to reset the chip, load a program,
 		// and perform a clock cycle
-		void reset();
-		void cycle();
-		void cycle_delay();
-		void cycle_sound();
+		virtual void reset();
+		virtual void cycle();
+		virtual void cycle_delay();
+		virtual void cycle_sound();
 		void test();
 
 		// Listeners

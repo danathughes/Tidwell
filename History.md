@@ -1,17 +1,37 @@
 Revision History
 ================
 
-Version 0.2.4
+Version 1.0.5
 -------------
 
 12 Sept 2018
+
+### New Classes
+
+* SChip8
+
+   A subclass of Chip8 that implements the extended instruction set from SuperChip-8.
 
 ### New Features
 
 * Created a Revision History document (History.md) to keep track of version number and major changes.
 
+* Display
 
-Version 0.2.3
+** Added methods to scroll the screen down, left and right.
+
+### Improvements
+
+* SimpleSDLGui
+
+** Added frame for display screen, run and step buttons, and program name.
+
+** Allow for changing screen resolution during runtime with up/down arrows.
+
+---
+
+
+Version 1.0.4
 -------------
 
 11 Sept 2018
@@ -33,7 +53,7 @@ Version 0.2.3
 ---
 
 
-Version 0.2.2
+Version 1.0.3
 -------------
 
 10 Sept 2018
@@ -45,7 +65,7 @@ Version 0.2.2
 ---
 
 
-Version 0.2.1
+Version 1.0.2
 -------------
 
 8 Sept 2018
@@ -59,7 +79,7 @@ Version 0.2.1
 ---
 
 
-Version 0.2.0
+Version 1.0.1
 -------------
 
 7 Sept 2018
@@ -71,10 +91,12 @@ Version 0.2.0
 ---
 
 
-Version 0.1.9
+Version 1.0.0
 -------------
 
 13 July 2018
+
+Major Revision change.  Initial fully functional release.  Chip-8 programs appear to work correctly.
 
 ### New Classes
 
@@ -107,7 +129,7 @@ Version 0.1.9
 ---
 
 
-Version 0.1.8
+Version 0.2.5
 -------------
 
 27 April 2018
@@ -125,7 +147,7 @@ Version 0.1.8
 ---
 
  
-Version 0.1.7
+Version 0.2.4
 -------------
 
 26 April 2018
@@ -137,7 +159,7 @@ Version 0.1.7
 ---
 
 
-Version 0.1.6
+Version 0.2.3
 -------------
 
 19 April 2018
@@ -163,7 +185,7 @@ Version 0.1.6
 ---
 
 
-Version 0.1.5
+Version 0.2.2
 -------------
 
 13 April 2018
@@ -201,7 +223,7 @@ Version 0.1.5
 ---
 
 
-Version 0.1.4
+Version 0.2.1
 -------------
 
 12 April 2018
@@ -227,10 +249,12 @@ Version 0.1.4
 ---
 
 
-Version 0.1.3
+Version 0.2.0
 -------------
 
 05 April 2018
+
+Minor Revision change.  The core functionality of the emulator can be demonstrated.  Sound is currently missing, and there are several bugs and architectural changes to be made.
 
 ### New Features
 
