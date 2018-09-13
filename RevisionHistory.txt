@@ -1,0 +1,131 @@
+26 March 2018
+--Initial Commit.  Skeleton code for core components created.
+	chip8.h - Main microcontroller.  The following methods are declared (not yet implemented)
+		reset
+		load
+		cycle
+		test
+		operations (private methods)
+	keyboard.h, keyboard.cpp - abstracts keyboard operations
+	memory.h, memory.cpp - abstracts memory access
+		fetch - basic memory access, returns a byte at specific location
+	display.h, display.cpp - abstracts display access
+--Base code to run the emulator created
+
+27 March 2018
+--Implemented code to load ROM files into memory.  
+--Added / implemented methods to Memory class:
+	fetch - get a byte from a specific address
+	dump - put a byte into a specific address
+	get_ram_start - get the beginning address of RAM (typically, 0x200)
+	print_memory - dump the contents of memory to the console
+	get_display_start - location where the display buffer is stored
+	get_display_size - size of the display buffer
+--Implemented a load function in the Chip8 class to load a file into memory
+--Implemented the _clear_screen operation in Chip8
+--Removed hard-coded call stack size from Chip8 constructor, reimplemented as a #define
+--Seed a random number generator
+--Implement a decode method using switch / case blocks
+--Implemented most of the operations.  The following remain unimplemented 
+	_draw, _skip_key_pressed, _skip_key_not_pressed, _get_key, _set_address_sprite, _store_bcd, 
+--Able to cycle through the maze program
+
+4 April 2018
+--Chip8 class:
+	Added some getters for registers, address, program counter and stack pointer
+--Started building a GUI using GTK
+
+5 April 2018
+--Chip8 class:
+	Implemented the _draw operation
+	Implemented the _skip_key_pressed operation
+	Implemented the _skip_key_not_pressed operation
+	Implemented the _get_key operation
+	Implemented the _set_address_sprite operation
+	Implemented the _store_bcd operation
+--Display class:
+	Added a set_pixel, get_pixel, write_line and show methods
+		set_pixel - flip a pixel at one location (and indicate collision)
+		get_pixel - get the value of a pixel at a location
+		write_line - write a line of 8 pixels.  Used by _draw to draw sprites on the display
+		show - dump the contents of the display to the console
+--GtkGui class
+	Creates a window, adds widgets for displaying register values, program counter and stack pointer.
+	Correctly destroys the window when closed
+	Button to perform a single cycle on the chip
+	Added methods
+		cycle_chip - calls cycle on the chip
+		build - construct the window and widges
+		run - run the GUI
+		update_registers - update the label widgets for register values
+--Keyboard class
+	Created methods
+		is_key_pressed - check if a specific Chip8 key (0-F) is down
+		press_key - indicate that a key has been pressed
+		release key - indicate that a key has been released
+--Memory class
+	Added methods
+		load_sprites - loads the font (0-F) into appropriate spot in memory
+		get_sprite_address - return the address of a specific sprite
+
+12 April 2018
+--Chip8 class:
+	Fixed but with drawing.  Could possibly draw up to 256 lines (!) as opposed to only 16.
+	Pushed get_pixel method into Chip8 class, access underlying display
+--GladeGui class:
+	Created GladeGui class based on GtkGui, which loads GUI definition from a glade file in order to simplify building or modifying the GUI
+	Created methods:
+		link_widgets - connect functionality of widgets once loaded from glade file
+		byte_to_string, short_to_string - renders byte / short values in hex with optional 0x prefix
+		cycle_chip - same as GtkGui
+		build - same as GtkGui
+		run - same as GtkGui
+		update_registers - same as GtkGui
+		get_pixel - grab the pixel of the display from Chip8
+		need_refresh - indicate if the display is ready to be redrawn
+	Added a run button, and a widget to draw the display to the GUI
+
+13 April 2018
+--Chip8 class:
+	Added methods to interact with the Keyboard class:
+		press_key, release_key
+--GladeGui
+	Added widgets for the  16 keyboard keys, and callbacks when the keyboard is pressed and released.  Added methods:
+		press_key - callback when any of the 16 keyboard keys are pressed
+		release_key - callback when any of the 16 keyboard keys are released
+		link_keyboard - used when loading the glade file to link the events to the proper callbacks
+	Moved the computer components (Memory, Keyboard, Display, Chip) from the Chip8 class to be part of the GladeGui class (no need for the chip to handle all the components)
+Added a bunch of Chip8 programs to the repo
+Started using CMake as a build system, shifted files around appropriately
+
+--Computer class:
+	Created a computer class to encapsulate all of the components (memory, chip, keyboard, display)
+--Memory class:
+	created to_string method, which dumps the memory in an easy to read format
+--GladeGui
+	Created methods
+	fill_memory_display method - places the memory dump into a scrolled window for easy display
+	update_register - used to indicate to the GUI that a value needs to be updated, rather than forcing the GUI to query from the computer each cycle.  Attempts to decouple the GUI more from the computer, so that it follows a more MPC framework.
+	update_program_counter
+	update_stack_pointer
+	update_address_register
+
+19 April 2018
+--Chip8 class:
+	Created method:
+		add_listener - gives the chip a link to the GUI, so the chip can call the GUI's update_* methods whenever a specific operation changes a particular value.  Basically fully decouples the GUI from the Chip.
+--GladeGui
+	Implemented the update_* methods
+--ChipListener
+	Started an interface to be implemented by GUIs for allowing the chip to indicate when updates need to be made to the GUI
+
+26 April 2018
+	Fixed a drawing bug in the Display class
+
+27 April 2018
+	GladeGui class:
+		Created a file open dialog for loading programs arbitrarily, rather than from the main program
+		Created Method
+			on_load_rom_activate - creates the dialog for loading a chip-8 program, and loads the program into the computer's memory
+	Chip8 class:
+		fixed the delay timer and sound timer data types (16-bit, not 8-bit)
