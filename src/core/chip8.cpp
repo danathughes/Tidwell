@@ -951,8 +951,8 @@ void Chip8::_store_bcd(unsigned short address, unsigned char register_x, unsigne
 
 	// Store the three bytes
 	memory->dump(address_register, value_100s);
-	memory->dump(address_register, value_10s);
-	memory->dump(address_register, value_1s);
+	memory->dump(address_register+1, value_10s);
+	memory->dump(address_register+2, value_1s);
 
 	gui->update_memory();
 }
