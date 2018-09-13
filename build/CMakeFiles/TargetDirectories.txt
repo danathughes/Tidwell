@@ -1,7 +1,0 @@
-/home/dana/Projects/chip-8/build/CMakeFiles/install.dir
-/home/dana/Projects/chip-8/build/CMakeFiles/list_install_components.dir
-/home/dana/Projects/chip-8/build/CMakeFiles/rebuild_cache.dir
-/home/dana/Projects/chip-8/build/CMakeFiles/RunChip8.dir
-/home/dana/Projects/chip-8/build/CMakeFiles/edit_cache.dir
-/home/dana/Projects/chip-8/build/CMakeFiles/install/strip.dir
-/home/dana/Projects/chip-8/build/CMakeFiles/install/local.dir
