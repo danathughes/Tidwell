@@ -11,7 +11,7 @@
 
 class Chip8
 {
-	private:
+	protected:
 		// Since memory can change for various implementations, utilize an
 		// external memory object
 		Memory* memory;

@@ -50,6 +50,7 @@ CMakeFiles/RunChip8.dir/src/run_chip8.cpp.o
  ../include/core/display.h
  ../include/core/keyboard.h
  ../include/core/memory.h
+ ../include/core/schip8.h
  ../include/view/gtkmm_gui.h
  ../include/view/simple_sdl_gui.h
  /home/dana/Projects/chip-8/src/run_chip8.cpp

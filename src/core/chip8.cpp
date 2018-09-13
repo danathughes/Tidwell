@@ -126,8 +126,6 @@ void Chip8::create_operation_map()
 	operation_map.insert(std::make_pair(0xF033, &Chip8::_store_bcd));
 	operation_map.insert(std::make_pair(0xF055, &Chip8::_dump_register));
 	operation_map.insert(std::make_pair(0xF065, &Chip8::_load_register));
-
-	// TODO:  If this is a SuperChip-8, add operations here...
 }
 
 
@@ -783,6 +781,8 @@ void Chip8::_random(unsigned short address, unsigned char register_x, unsigned c
 *********************/
 void Chip8::_draw(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
+	std::cout << "Chip-8 Draw" << std::endl;
+
 	bool collision = false;
 
 	unsigned char x = registers[register_x];

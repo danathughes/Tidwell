@@ -151,6 +151,8 @@ sstream
 /home/dana/Projects/chip-8/src/core/schip8.cpp
 core/schip8.h
 /home/dana/Projects/chip-8/src/core/core/schip8.h
+iostream
+-
 
 /home/dana/Projects/chip-8/src/run_chip8.cpp
 core/memory.h
@@ -161,6 +163,8 @@ core/display.h
 /home/dana/Projects/chip-8/src/core/display.h
 core/chip8.h
 /home/dana/Projects/chip-8/src/core/chip8.h
+core/schip8.h
+/home/dana/Projects/chip-8/src/core/schip8.h
 core/computer.h
 /home/dana/Projects/chip-8/src/core/computer.h
 core/clock.h

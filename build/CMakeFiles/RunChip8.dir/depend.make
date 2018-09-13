@@ -49,6 +49,7 @@ CMakeFiles/RunChip8.dir/src/run_chip8.cpp.o: ../include/core/computer.h
 CMakeFiles/RunChip8.dir/src/run_chip8.cpp.o: ../include/core/display.h
 CMakeFiles/RunChip8.dir/src/run_chip8.cpp.o: ../include/core/keyboard.h
 CMakeFiles/RunChip8.dir/src/run_chip8.cpp.o: ../include/core/memory.h
+CMakeFiles/RunChip8.dir/src/run_chip8.cpp.o: ../include/core/schip8.h
 CMakeFiles/RunChip8.dir/src/run_chip8.cpp.o: ../include/view/gtkmm_gui.h
 CMakeFiles/RunChip8.dir/src/run_chip8.cpp.o: ../include/view/simple_sdl_gui.h
 CMakeFiles/RunChip8.dir/src/run_chip8.cpp.o: ../src/run_chip8.cpp
