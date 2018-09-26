@@ -1,6 +1,49 @@
 Revision History
 ================
 
+Version 1.0.7
+-------------
+26 Sept 2018
+
+## New Features
+
+* SChip8
+
+** Storing and Loading from HP registers implemented.
+
+### Bug Fixes
+
+* Chip8 correctly sets the not borrow register (0x0F) when subtracting equal values
+
+* Buffer overflow flag is set when adding register to address pointer
+
+
+Version 1.0.6
+-------------
+13 Sept 2018
+
+### New Features
+
+* SChip8
+
+** Most operations implemented.  Not sure what to do with __exit__ and __load_register_rpl__ and __dump_register_rpl__, as these are dependent on HP-48 platform.
+
+### Improvements
+
+* General cleanup of the reop
+
+* Memory
+
+** Added SuperChip (8x10) fonts to memory
+
+* SimpleSDLGui
+
+** Changed from key events to checking keyboard state, to try to remove or minimize repeated keypresses.
+
+### Bug Fixes
+
+* Chip8 correctly stored digits when __store_bcd__ operation is performed.
+
 Version 1.0.5
 -------------
 

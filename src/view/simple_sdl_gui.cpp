@@ -153,6 +153,25 @@ void SimpleSDLGui::run()
 		// Get the timer
 		startTime = SDL_GetTicks();
 
+		const unsigned char* keyboard_state = SDL_GetKeyboardState(NULL);
+/*
+		if(keyboard_state[Key0])	computer->press_key(0x00);	else	computer->release_key(0x00);
+		if(keyboard_state[Key1])	computer->press_key(0x01);	else	computer->release_key(0x01);
+		if(keyboard_state[Key2])	computer->press_key(0x02);	else	computer->release_key(0x02);
+		if(keyboard_state[Key3])	computer->press_key(0x03);	else	computer->release_key(0x03);
+		if(keyboard_state[Key4])	computer->press_key(0x04);	else	computer->release_key(0x04);
+		if(keyboard_state[Key5])	computer->press_key(0x05);	else	computer->release_key(0x05);
+		if(keyboard_state[Key6])	computer->press_key(0x06);	else	computer->release_key(0x06);
+		if(keyboard_state[Key7])	computer->press_key(0x07);	else	computer->release_key(0x07);
+		if(keyboard_state[Key8])	computer->press_key(0x08);	else	computer->release_key(0x08);
+		if(keyboard_state[Key9])	computer->press_key(0x09);	else	computer->release_key(0x09);
+		if(keyboard_state[KeyA])	computer->press_key(0x0A);	else	computer->release_key(0x0A);
+		if(keyboard_state[KeyB])	computer->press_key(0x0B);	else	computer->release_key(0x0B);
+		if(keyboard_state[KeyC])	computer->press_key(0x0C);	else	computer->release_key(0x0C);
+		if(keyboard_state[KeyD])	computer->press_key(0x0D);	else	computer->release_key(0x0D);
+		if(keyboard_state[KeyE])	computer->press_key(0x0E);	else	computer->release_key(0x0E);
+		if(keyboard_state[KeyF])	computer->press_key(0x0F);	else	computer->release_key(0x0F);
+*/
 		// Handle events
 		while(SDL_PollEvent(&event) != 0)
 		{
@@ -163,11 +182,10 @@ void SimpleSDLGui::run()
 			}
 
 			// Handle key presses
-			if(event.type == SDL_KEYDOWN)
+			if(event.type == SDL_KEYDOWN && event.key.repeat == 0)
 			{
-				// Handle each key
 				if(event.key.keysym.sym == Key0)	computer->press_key(0x00);
-				if(event.key.keysym.sym == Key1)	computer->press_key(0x01);			
+				if(event.key.keysym.sym == Key1)	computer->press_key(0x01);
 				if(event.key.keysym.sym == Key2)	computer->press_key(0x02);
 				if(event.key.keysym.sym == Key3)	computer->press_key(0x03);
 				if(event.key.keysym.sym == Key4)	computer->press_key(0x04);
@@ -183,15 +201,14 @@ void SimpleSDLGui::run()
 				if(event.key.keysym.sym == KeyE)	computer->press_key(0x0E);
 				if(event.key.keysym.sym == KeyF)	computer->press_key(0x0F);
 
+
 				// Resize the display?
 				if(event.key.keysym.sym == SDLK_UP)		computer->resize_display(128,64);
 				if(event.key.keysym.sym == SDLK_DOWN)	computer->resize_display(64,32);
 			}
 
-			// Handle key releases
-			if(event.type == SDL_KEYUP)
+			if(event.type == SDL_KEYUP && event.key.repeat == 0)
 			{
-				// Handle each key
 				if(event.key.keysym.sym == Key0)	computer->release_key(0x00);
 				if(event.key.keysym.sym == Key1)	computer->release_key(0x01);
 				if(event.key.keysym.sym == Key2)	computer->release_key(0x02);
@@ -209,6 +226,7 @@ void SimpleSDLGui::run()
 				if(event.key.keysym.sym == KeyE)	computer->release_key(0x0E);
 				if(event.key.keysym.sym == KeyF)	computer->release_key(0x0F);
 			}
+
 		}
 
 		draw();

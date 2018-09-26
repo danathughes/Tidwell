@@ -6,6 +6,9 @@
 class SChip8 : public Chip8
 {
 	protected:
+		// HP Registers
+		unsigned char hp_registers[8];
+
 		void _scroll_down(unsigned short, unsigned char, unsigned char, unsigned char);
 		void _scroll_right(unsigned short, unsigned char, unsigned char, unsigned char);
 		void _scroll_left(unsigned short, unsigned char, unsigned char, unsigned char);

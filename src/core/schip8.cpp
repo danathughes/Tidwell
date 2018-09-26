@@ -206,10 +206,18 @@ void SChip8::_set_address_big_sprite(unsigned short address, unsigned char regis
 void SChip8::_dump_register_rpl(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	// NOTE: Not sure what to do here.  May need to incorporate another hardware abstraction
+	for(int i=0; i<=register_x; i++)
+	{
+		hp_registers[i] = registers[i];
+	}
 }
 
 void SChip8::_load_register_rpl(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	// NOTE: Not sure what to do here.  May need to incorporate another hardware abstraction
+	for(int i=0; i<=register_x; i++)
+	{
+		registers[i] = hp_registers[i];
+	}
 }
 

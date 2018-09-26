@@ -605,7 +605,7 @@ void Chip8::_subtract_register_register(unsigned short address, unsigned char re
 	unsigned short difference = (unsigned short) registers[register_x];
 
 	// Is a borrow necessary?
-	if(registers[register_x] > registers[register_y])
+	if(registers[register_x] >= registers[register_y])
 	{
 		registers[0x0F] = 0x01;		// Set the NOT BORROW bit
 	}
@@ -637,7 +637,7 @@ void Chip8::_subtract_negative_register_register(unsigned short address, unsigne
 	unsigned short difference = (unsigned short) registers[register_y];
 
 	// Is a borrow necessary?
-	if(registers[register_y] > registers[register_x])
+	if(registers[register_y] >= registers[register_x])
 	{
 		registers[0x0F] = 0x01;		// Set the NOT BORROW bit
 	}
@@ -847,6 +847,8 @@ void Chip8::_get_key(unsigned short address, unsigned char register_x, unsigned 
 		{
 			registers[register_x] = i;
 			got_key_press = true;
+			// Unset the key?
+			keyboard->release_key(i);
 			break;
 		}
 	}
@@ -923,6 +925,11 @@ void Chip8::_add_address_register(unsigned short address, unsigned char register
 	address_register += registers[register_x];
 
 	gui->update_address_register(address_register);
+
+	if(address_register > 0x0FFF)
+	{
+		registers[0x0F] = 0x01;
+	}
 }
 
 
