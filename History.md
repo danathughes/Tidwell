@@ -1,6 +1,23 @@
 Revision History
 ================
 
+Version 1.1.0
+-------------
+03 Oct 2018
+
+## New Classes
+
+* Disassembler
+
+  An initial class to disassemble and perform a simple trace of the program flow to discriminate between instructions and data.
+
+## Bug Fixes
+
+* Chip8 and SChip8 correctly clear flag during DRAW
+
+---
+
+
 Version 1.0.7
 -------------
 26 Sept 2018
@@ -16,6 +33,8 @@ Version 1.0.7
 * Chip8 correctly sets the not borrow register (0x0F) when subtracting equal values
 
 * Buffer overflow flag is set when adding register to address pointer
+
+---
 
 
 Version 1.0.6
@@ -43,6 +62,9 @@ Version 1.0.6
 ### Bug Fixes
 
 * Chip8 correctly stored digits when __store_bcd__ operation is performed.
+
+---
+
 
 Version 1.0.5
 -------------
