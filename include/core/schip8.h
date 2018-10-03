@@ -3,6 +3,8 @@
 
 #include "core/chip8.h"
 
+enum GraphicMode {LORES, HIRES};
+
 class SChip8 : public Chip8
 {
 	protected:
@@ -23,6 +25,8 @@ class SChip8 : public Chip8
 		void _load_register_rpl(unsigned short, unsigned char, unsigned char, unsigned char);
 
 		void create_operation_map();
+
+		GraphicMode graphicMode;
 
 	public:
 		// Constructors and destructors

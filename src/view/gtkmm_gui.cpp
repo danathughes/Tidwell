@@ -26,8 +26,10 @@ extern "C" {
 
 GtkmmGui::GtkmmGui(Computer* _computer, int argc, char** argv)
 {
+	std::cout << "Constructing GUI" << std::endl;
+
 	// Initialize Gtk
-	gtkApp = Gtk::Application::create(argc, argv, "com.danathughes.chip8");
+	gtkApp = Gtk::Application::create(argc, argv, "com.danathughes.tidwell8");
 
 	computer = _computer;
 
@@ -110,6 +112,7 @@ bool GtkmmGui::on_key_release(GdkEventButton* event, int button_num)
 void GtkmmGui::on_click_cycle()
 {
 	computer->cycle();
+	computer->cycle_timers();
 }
 
 
@@ -197,8 +200,8 @@ bool GtkmmGui::draw_screen(Cairo::RefPtr<Cairo::Context> cr)
 	const int screen_width = allocation.get_width();
 	const int screen_height = allocation.get_height();
 
-	double width_scale = (double) screen_width / 64;
-	double height_scale = (double) screen_height / 32;
+	double width_scale = (double) screen_width / computer->get_display_width();
+	double height_scale = (double) screen_height / computer->get_display_height();
 
 
 	cr->scale(width_scale, height_scale);			// NOTE:  This is hardcoded!  Grab it from the computer display!
@@ -206,9 +209,9 @@ bool GtkmmGui::draw_screen(Cairo::RefPtr<Cairo::Context> cr)
 
 
 	// Draw all the rectangles in the display
-	for(unsigned char i=0; i<64; i++)
+	for(unsigned char i=0; i<computer->get_display_width(); i++)
 	{
-		for(unsigned char j=0; j<32; j++)
+		for(unsigned char j=0; j<computer->get_display_height(); j++)
 		{
 			// Draw the rectange
 			cr->rectangle((double) i, (double) j, 1.0, 1.0);
@@ -295,6 +298,8 @@ void GtkmmGui::setup_keyboard(Glib::RefPtr<Gtk::Builder> builder)
 
 void GtkmmGui::build()
 {
+	std::cout << "Building GUI" << std::endl;
+
 	Glib::RefPtr<Gtk::Builder> builder = Gtk::Builder::create();
 	Gtk::Button* cycle_button = nullptr;
 	Gtk::Button* reset_button = nullptr;
@@ -361,6 +366,8 @@ void GtkmmGui::build()
 
 void GtkmmGui::run()
 {
+	std::cout << "Running GUI" << std::endl;
+
 	gtkApp->run(*window);
 }
 

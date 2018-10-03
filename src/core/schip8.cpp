@@ -9,6 +9,7 @@ SChip8::SChip8()
 	: Chip8()
 {
 	create_operation_map();
+	graphicMode = LORES;
 }
 
 
@@ -20,6 +21,7 @@ SChip8::SChip8(Memory* _memory, Display* _display, Keyboard* _keyboard)
 	: Chip8(_memory, _display, _keyboard)
 {
 	create_operation_map();
+	graphicMode = LORES;
 }
 
 
@@ -31,6 +33,7 @@ SChip8::SChip8(Memory* _memory, Display* _display, Keyboard* _keyboard, unsigned
 	: Chip8(_memory, _display, _keyboard, call_stack_size)
 {
 	create_operation_map();
+	graphicMode = LORES;
 }
 
 
@@ -64,6 +67,10 @@ void SChip8::cycle()
 	// Get the opcode from memory, and increment the program counter
 	// The opcode takes two bytes in memory, stored big-endian
 	unsigned short opcode = (memory->fetch(program_counter) << 8) | (memory->fetch(program_counter + 1));
+
+
+//	std::cout << "0x" << std::hex << program_counter << ":\t" << std::hex << opcode << std::endl;
+
 	program_counter += 2;
 
 	gui->update_program_counter(program_counter);
@@ -142,18 +149,22 @@ void SChip8::_scroll_left(unsigned short address, unsigned char register_x, unsi
 void SChip8::_exit(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	// Not sure what to do here, may need to implement another abstraction layer...
+	std::cout << "EXIT" << std::endl;
+	while(1);
 }
 
 void SChip8::_enable_extended_screen(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	std::cout << "Extended screen mode" << std::endl;
 	display->resize(128,64);
+	graphicMode = HIRES;
 }
 
 void SChip8::_disable_extended_screen(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	std::cout << "Normal screen mode" << std::endl;
 	display->resize(64,32);
+	graphicMode = LORES;
 }
 
 
@@ -172,14 +183,27 @@ void SChip8::_draw(unsigned short address, unsigned char register_x, unsigned ch
 		unsigned char x = registers[register_x];
 		unsigned char y = registers[register_y];
 
-		for(int i=0; i<32; i=i+2)
+		// Is the display 128x64, or 64x32??
+		if(graphicMode == HIRES)
 		{
-			unsigned char line = memory->fetch(address_register + i);
-			collision = display->write_line(x, y + (i/2),  line) || collision;
+			for(int i=0; i<32; i=i+2)
+			{
+				unsigned char line = memory->fetch(address_register + i);
+				collision = display->write_line(x, y + (i/2),  line) || collision;
 
-			line = memory->fetch(address_register + i + 1);
-			collision = display->write_line(x+8, y + (i/2), line) || collision;
+				line = memory->fetch(address_register + i + 1);
+				collision = display->write_line(x+8, y + (i/2), line) || collision;
+			}
 		}
+		else
+		{
+			for(int i=0; i<16; i++)
+			{
+				unsigned char line = memory->fetch(address_register + i);
+				collision = display->write_line(x, y + i,  line) || collision;
+			}			
+		}
+		
 	}
 	else 				// Draw using Chip-8 method
 	{
@@ -189,6 +213,10 @@ void SChip8::_draw(unsigned short address, unsigned char register_x, unsigned ch
 	if(collision)
 	{
 		registers[0x0F] = 0x01;
+	}
+	else
+	{
+		registers[0x0F] = 0x00;
 	}
 
 	gui->refresh_display();

@@ -42,6 +42,12 @@ void Computer::cycle()
 	chip->cycle();
 }
 
+void Computer::cycle_timers()
+{
+	chip->cycle_delay();
+	chip->cycle_sound();
+}
+
 bool Computer::get_pixel(unsigned char x, unsigned char y)
 {
 	return display->get_pixel(x, y);

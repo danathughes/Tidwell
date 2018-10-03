@@ -300,7 +300,7 @@ void Chip8::_return(unsigned short address, unsigned char register_x, unsigned c
 	// Is there somthing on the stack to pop?
 	if(stack_pointer == 0)
 	{
-		std::cout << "ERROR:  No address on stack in RETURN" << std::endl;
+		std::cout << "ERROR:  No address on stack in RETURN\tProgram Counter: 0x" << std::hex << program_counter << std::endl;
 		return;
 	}
 
@@ -326,6 +326,7 @@ void Chip8::_return(unsigned short address, unsigned char register_x, unsigned c
 void Chip8::_system_call(unsigned short address, unsigned char register_x, unsigned char register_y, unsigned char value)
 {
 	// NOTE:  This instruction is ignored.
+	std::cout << "SYSTEM CALL:  Program Counter: 0x" << std::hex << program_counter-2 << std::endl;
 }
 
 
@@ -802,6 +803,10 @@ void Chip8::_draw(unsigned short address, unsigned char register_x, unsigned cha
 	if(collision)
 	{
 		registers[0x0F] = 0x01;
+	}
+	else
+	{
+		registers[0x0F] = 0x00;
 	}
 
 	gui->refresh_display();

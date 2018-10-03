@@ -31,6 +31,7 @@ class Computer
 		void resize_display(unsigned int, unsigned int);
 
 		void cycle();
+		void cycle_timers();
 		void run();
 		void pause();
 
